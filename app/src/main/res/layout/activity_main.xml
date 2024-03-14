@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Switch
+        android:id="@+id/musicSwitch"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="29dp"
+        android:autoText="false"
+        android:background="@drawable/musicswitch"
+        android:checked="true"
+        android:enabled="true"
+        android:fadeScrollbars="true"
+        android:filterTouchesWhenObscured="false"
+        android:fitsSystemWindows="false"
+        android:forceHasOverlappingRendering="true"
+        android:foreground="@drawable/musicswitch"
+        android:showText="false"
+        android:splitTrack="false" />
+
+</RelativeLayout>
