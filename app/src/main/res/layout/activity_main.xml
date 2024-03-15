@@ -9,13 +9,13 @@
 
     <Switch
         android:id="@+id/musicSwitch"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="false"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="29dp"
+        android:layout_marginTop="457dp"
+        android:layout_marginEnd="110dp"
         android:autoText="false"
         android:background="@drawable/musicswitch"
         android:checked="true"
@@ -25,6 +25,27 @@
         android:fitsSystemWindows="false"
         android:forceHasOverlappingRendering="true"
         android:foreground="@drawable/musicswitch"
+        android:showText="false"
+        android:splitTrack="false" />
+
+    <Button
+        android:id="@+id/questionSwitch"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="457dp"
+        android:autoText="false"
+        android:background="@drawable/howtoplaybutton"
+        android:checked="true"
+        android:enabled="true"
+        android:fadeScrollbars="true"
+        android:filterTouchesWhenObscured="false"
+        android:fitsSystemWindows="false"
+        android:forceHasOverlappingRendering="true"
+        android:foreground="@drawable/howtoplaybutton"
         android:showText="false"
         android:splitTrack="false" />
 
