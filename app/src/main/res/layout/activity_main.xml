@@ -14,7 +14,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/mainscreen" />
+        app:srcCompat="@drawable/mainscreenbeni" />
 
 
     <ImageView
@@ -24,9 +24,9 @@
         android:layout_alignBottom="@+id/soloPlaybutton"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="49dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="97dp"
         app:srcCompat="@drawable/title" />
 
     <Switch
