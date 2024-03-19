@@ -1,7 +1,10 @@
 package com.example.knightsconquest
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Switch
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private var isMusicEnabled = true
     private var mediaPlayer: MediaPlayer? = null
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,9 +37,24 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-    }
 
-    private fun startBackgroundMusic() {
+        val playbutton: Button = findViewById(R.id.playbutton)
+        playbutton.setOnClickListener {
+            val playscreen = Intent(this, Play::class.java)
+            startActivity(playscreen)
+        }
+        val howToPlayButton: Button = findViewById(R.id.howToPlayButton)
+        howToPlayButton.setOnClickListener {
+            val howToPlayScreen = Intent(this, HowToPlay::class.java)
+            startActivity(howToPlayScreen)
+        }
+        val soloPlayButton: Button = findViewById(R.id.soloPlayButton)
+        soloPlayButton.setOnClickListener {
+            val soloPlayScreen = Intent(this, SoloPlay::class.java)
+            startActivity(soloPlayScreen)
+        }
+    }
+    fun startBackgroundMusic() {
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer.create(this, R.raw.titlemusic)
             mediaPlayer?.isLooping = true
