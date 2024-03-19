@@ -7,6 +7,29 @@
     android:layout_height="match_parent"
     tools:context=".SoloPlay">
 
+    <Button
+        android:id="@+id/backButtonSoloPlayScreen"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:autoText="false"
+        android:background="@drawable/backbutton"
+        android:checked="true"
+        android:enabled="true"
+        android:fadeScrollbars="true"
+        android:filterTouchesWhenObscured="false"
+        android:fitsSystemWindows="false"
+        android:forceHasOverlappingRendering="true"
+        android:foreground="@drawable/backbutton"
+        android:showText="false"
+        android:splitTrack="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="367dp"

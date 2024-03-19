@@ -41,16 +41,22 @@ class MainActivity : AppCompatActivity() {
         val playbutton: Button = findViewById(R.id.playbutton)
         playbutton.setOnClickListener {
             val playscreen = Intent(this, Play::class.java)
+            mediaPlayer?.release()
+            mediaPlayer = null
             startActivity(playscreen)
         }
         val howToPlayButton: Button = findViewById(R.id.howToPlayButton)
         howToPlayButton.setOnClickListener {
             val howToPlayScreen = Intent(this, HowToPlay::class.java)
+            mediaPlayer?.release()
+            mediaPlayer = null
             startActivity(howToPlayScreen)
         }
         val soloPlayButton: Button = findViewById(R.id.soloPlayButton)
         soloPlayButton.setOnClickListener {
             val soloPlayScreen = Intent(this, SoloPlay::class.java)
+            mediaPlayer?.release()
+            mediaPlayer = null
             startActivity(soloPlayScreen)
         }
     }
