@@ -23,5 +23,6 @@ class SoloPlay : AppCompatActivity() {
             val mainScreen = Intent(this, MainActivity::class.java)
             startActivity(mainScreen)
         }
+
     }
 }
