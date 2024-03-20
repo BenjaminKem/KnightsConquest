@@ -20,7 +20,7 @@ class SoloPlay : AppCompatActivity() {
         }
         val backButton: Button = findViewById(R.id.backButtonSoloPlayScreen)
         backButton.setOnClickListener {
-            val mainScreen = Intent(this, MainActivity::class.java)
+            val mainScreen = Intent(this, MainScreen::class.java)
             startActivity(mainScreen)
         }
 

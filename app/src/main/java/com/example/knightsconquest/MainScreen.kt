@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class MainActivity : AppCompatActivity() {
+class MainScreen : AppCompatActivity() {
     private var isMusicEnabled = true
     private var mediaPlayer: MediaPlayer? = null
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_screen)
 
         val musicSwitch = findViewById<Switch>(R.id.musicSwitch)
         musicSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         val playbutton: Button = findViewById(R.id.playbutton)
         playbutton.setOnClickListener {
-            val playscreen = Intent(this, Play::class.java)
+            val playscreen = Intent(this, DuoPlay::class.java)
             mediaPlayer?.release()
             mediaPlayer = null
             startActivity(playscreen)
