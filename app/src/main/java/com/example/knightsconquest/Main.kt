@@ -8,4 +8,6 @@ fun main() {
     gameBoard.init()
 
     gameBoard.printBoard()
+    val cardCreator = CardCreator()
+    cardCreator.createCardList()
 }
