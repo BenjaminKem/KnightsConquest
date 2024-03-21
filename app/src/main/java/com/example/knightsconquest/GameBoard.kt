@@ -62,7 +62,6 @@ class GameBoard {
                 else{
                     print("N \t")
                 }
-
             }
             println()
         }
