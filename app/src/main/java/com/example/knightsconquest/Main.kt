@@ -6,7 +6,7 @@ fun main() {
 
     // Initialisiere das Spielbrett
     gameBoard.init()
-
+    gameBoard.printBoard()
     val cardCreator = CardCreator()
     val fiveRandomCards = cardCreator.getFiveRandomCards()
 }
