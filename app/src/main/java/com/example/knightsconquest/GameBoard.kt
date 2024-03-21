@@ -3,7 +3,8 @@ package com.example.knightsconquest
 class GameBoard {
     private val size = 5
     private val board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
-
+    private var redWon = false;
+    private var blueWon = false;
     fun init (){
         for(count in 0..4){
             if(count == 2){
@@ -66,9 +67,46 @@ class GameBoard {
             //einsetzen an neuer Position
             board[toX][toY] = tempTile
         }
+        didSomeoneWin()
     }
-    fun didSomeoneWin(){
-
+    fun didSomeoneWin() : Boolean{
+        //zum tracken ob die Könige noch leben
+        var blueKingAlive = false
+        var redKingAlive = false
+        for (rowCounter in 0..4) {
+            for (columnCounter in 0..4) {
+                //Wenn der Blaue König in der Roten Base ist hat Blau gewonnen
+                if(rowCounter == 0 && columnCounter== 2 && getPieceAt(rowCounter, columnCounter).figure == FigureType.KING && getPieceAt(rowCounter, columnCounter).color == TileColor.BLUE){
+                    println("Blue Won")
+                    blueWon = true
+                    return true
+                }
+                //Wenn der Rote König in der Blauen Base ist hat Rot gewonnen
+                else if(rowCounter == 4 && columnCounter== 2 && getPieceAt(rowCounter, columnCounter).figure == FigureType.KING && getPieceAt(rowCounter, columnCounter).color == TileColor.RED){
+                    println("Red Won")
+                    redWon = true
+                    return true
+                }
+                //Wenn der Rote oder Blaue König gefunden wird wird der Wert auf True gesetzt um am Ende zu Prüfen ob beide noch leben
+                else if(getPieceAt(rowCounter, columnCounter).figure == FigureType.KING && getPieceAt(rowCounter, columnCounter).color == TileColor.BLUE){
+                    blueKingAlive = true
+                }else if(getPieceAt(rowCounter, columnCounter).figure == FigureType.KING && getPieceAt(rowCounter, columnCounter).color == TileColor.RED){
+                    redKingAlive = true
+                }
+            }
+        }
+        //Wenn beide Leben geht das Spiel weiter
+        if(redKingAlive && blueKingAlive){
+            return false
+        }
+        //Wenn der Rote König überlebt hat dann hat gewinnt Rot sont Blau
+        if(redKingAlive){
+            println("Red Won")
+            redWon = true
+        }
+        println("Blue Won")
+        blueWon = true
+        return true
     }
     fun printBoard(){
         for (rowCounter in 0..4) {
