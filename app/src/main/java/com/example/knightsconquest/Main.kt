@@ -8,4 +8,10 @@ fun main() {
     gameBoard.init()
 
     gameBoard.printBoard()
+    println()
+    println()
+    gameBoard.makeMove(0,0,1,0)
+
+    gameBoard.printBoard()
+
 }

@@ -4,4 +4,3 @@ class Tile (
     val color : TileColor,
     var figure: FigureType
 )
-

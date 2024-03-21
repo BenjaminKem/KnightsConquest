@@ -1,23 +1,23 @@
 package com.example.knightsconquest
 
+
+
 class GameBoard {
     private val size = 5
-    private val board: Array<Array<Tile>> = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
+    private val board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
 
     fun init (){
-        initialize()
-    }
-    private fun initialize (){
-            for(count in 0..4){
-                if(count == 2){
-                    board[0][count] = Tile(TileColor.RED,FigureType.KING)
-                    board[4][count] = Tile(TileColor.BLUE,FigureType.KING)
-                }else{
-                    board[0][count] = Tile(TileColor.RED,FigureType.KNIGHT)
-                    board[4][count] = Tile(TileColor.BLUE,FigureType.KNIGHT)
-                }
+        for(count in 0..4){
+            if(count == 2){
+                board[0][count] = Tile(TileColor.RED,FigureType.KING)
+                board[4][count] = Tile(TileColor.BLUE,FigureType.KING)
+            }else{
+                board[0][count] = Tile(TileColor.RED,FigureType.KNIGHT)
+                board[4][count] = Tile(TileColor.BLUE,FigureType.KNIGHT)
             }
         }
+    }
+
     fun getPieceAt(x: Int, y: Int): Tile {
         // Gibt den Spielstein an der Position (x, y) zurück.
         return board[x][y]
@@ -31,6 +31,14 @@ class GameBoard {
     fun makeMove(fromX: Int, fromY: Int, toX: Int, toY: Int) {
         // Führt den Zug von (fromX, fromY) nach (toX, toY) aus.
         // Aktualisiere das Spielbrett und die Spielsteine.
+        if(isValidMove(fromX,fromY,toX,toY)){
+
+            val tempTile = Tile((this.getPieceAt(fromX, fromY)).color, (this.getPieceAt(fromX, fromY)).figure)
+            //löschen an alter Position
+            board[fromX][fromY] =Tile(TileColor.NEUTRAL, FigureType.NONE)
+            //einsetzen an neuer Position
+            board[toX][toY] = tempTile
+        }
     }
     fun didSomeoneWin(){
 
