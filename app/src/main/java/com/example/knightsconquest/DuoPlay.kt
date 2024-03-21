@@ -23,5 +23,6 @@ class DuoPlay : AppCompatActivity() {
             val mainScreen = Intent(this, MainScreen::class.java)
             startActivity(mainScreen)
         }
+        var gameBoard = GameBoard()
     }
 }
