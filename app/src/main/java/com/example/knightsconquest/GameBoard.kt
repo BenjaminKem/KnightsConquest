@@ -25,7 +25,22 @@ class GameBoard {
 
     fun isValidMove(fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
         // Überprüft, ob der Zug von (fromX, fromY) nach (toX, toY) gültig ist.
-        // Implementiere die Logik für die gültigen Züge in Onitama.
+
+        val clickedPiece = this.getPieceAt(fromX, fromY)
+
+        val destinationPiece = this.getPieceAt(toX, toY)
+
+        //Bewegung außerhalb des Spielfeldes ist nicht möglich
+        if(toX >= 5  || toY >= 5){
+            return false;
+        }
+        else if (toX < 0 || toY < 0){
+            return false;
+        }
+        //Bewegung auf ein Feld mit der selben Farbe ist nicht möglich
+        else if(clickedPiece.color == destinationPiece.color){
+            return false
+        }
         return true
     }
     fun makeMove(fromX: Int, fromY: Int, toX: Int, toY: Int) {
