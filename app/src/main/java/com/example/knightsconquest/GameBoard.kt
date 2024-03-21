@@ -23,12 +23,12 @@ class GameBoard {
         return board[x][y]
     }
 
-    fun isValidMove(cardname: String, fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
+    fun isValidMove(fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
         // Überprüft, ob der Zug von (fromX, fromY) nach (toX, toY) gültig ist.
 
         val clickedPiece = this.getPieceAt(fromX, fromY)
+
         val destinationPiece = this.getPieceAt(toX, toY)
-        var movementArray = checkCardMovement(cardname,fromX, fromY, toX, toY)
 
         //Bewegung außerhalb des Spielfeldes ist nicht möglich
         if(toX >= 5  || toY >= 5){
@@ -41,38 +41,12 @@ class GameBoard {
         else if(clickedPiece.color == destinationPiece.color){
             return false
         }
-        else if(!(checkCardMovement(cardname,fromX, fromY, toX, toY))){
-            return false
-        }
         return true
     }
-    fun checkCardMovement(cardname: String, fromX: Int, fromY: Int, toX: Int, toY: Int):Boolean{
-        val cardCreator = CardCreator()
-        var cardList = cardCreator.createCardList()
-
-        //Wenn der Kartenname nicht in der Liste vorhanden ist ist die Bewegung ungültig
-        if(!(cardList.any{it.name == cardname})){
-            return false
-        }
-
-        var cardIndex = cardList.indexOfFirst{it.name == cardname}
-        val card = cardList[cardIndex]
-
-            for(movement in card.movements){
-                val xMovement = movement[0]
-                val yMovement = movement[1]
-
-                if(fromX + xMovement != toX || fromY+yMovement != toY){
-                    return false
-                }
-            }
-
-        return true
-    }
-    fun makeMove(cardname: String, fromX: Int, fromY: Int, toX: Int, toY: Int) {
+    fun makeMove(fromX: Int, fromY: Int, toX: Int, toY: Int) {
         // Führt den Zug von (fromX, fromY) nach (toX, toY) aus.
         // Aktualisiere das Spielbrett und die Spielsteine.
-        if(isValidMove(cardname, fromX,fromY,toX,toY)){
+        if(isValidMove(fromX,fromY,toX,toY)){
 
             val tempTile = Tile((this.getPieceAt(fromX, fromY)).color, (this.getPieceAt(fromX, fromY)).figure)
             //löschen an alter Position
