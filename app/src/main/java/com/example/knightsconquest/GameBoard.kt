@@ -3,7 +3,6 @@ package com.example.knightsconquest
 class GameBoard {
     private val size = 5
     private val board: Array<Array<Tile>> = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
-    private val redTurn: Boolean = true
 
     fun init (){
         initialize()
@@ -29,21 +28,13 @@ class GameBoard {
         // Implementiere die Logik für die gültigen Züge in Onitama.
         return true
     }
-    fun getTurnColor(): TileColor{
-        if(redTurn){
-            return TileColor.RED
-        }else{
-            return TileColor.BLUE
-        }
-    }
     fun makeMove(fromX: Int, fromY: Int, toX: Int, toY: Int) {
         // Führt den Zug von (fromX, fromY) nach (toX, toY) aus.
         // Aktualisiere das Spielbrett und die Spielsteine.
     }
-    val didSomeoneWin: Int
-        get() =// Gibt den Gewinner des Spiels zurück.
-            // Implementiere die Logik für die Bestimmung des Gewinners in Onitama.
-            0 // Zusätzliche Methoden:
+    fun didSomeoneWin(){
+
+    }
     fun printBoard(){
         for (rowCounter in 0..4) {
             for (columnCounter in 0..4) {
