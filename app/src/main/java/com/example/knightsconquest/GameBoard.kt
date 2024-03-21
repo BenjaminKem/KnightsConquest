@@ -4,6 +4,7 @@ class GameBoard {
     private val size = 5
     private val board: Array<Array<Tile>> = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
     private val redTurn: Boolean = true
+
     fun init (){
         initialize()
     }
@@ -43,4 +44,27 @@ class GameBoard {
         get() =// Gibt den Gewinner des Spiels zurück.
             // Implementiere die Logik für die Bestimmung des Gewinners in Onitama.
             0 // Zusätzliche Methoden:
+    fun printBoard(){
+        for (rowCounter in 0..4) {
+            for (columnCounter in 0..4) {
+                if(this.getPieceAt(rowCounter,columnCounter).color == TileColor.RED && this.getPieceAt(rowCounter,columnCounter).figure == FigureType.KING){
+                    print("RK \t")
+                }
+                else if(this.getPieceAt(rowCounter,columnCounter).color == TileColor.BLUE && this.getPieceAt(rowCounter,columnCounter).figure == FigureType.KING){
+                    print("BK \t")
+                }
+                else if(this.getPieceAt(rowCounter,columnCounter).color == TileColor.BLUE && this.getPieceAt(rowCounter,columnCounter).figure == FigureType.KNIGHT){
+                    print("BS \t")
+                }
+                else if(this.getPieceAt(rowCounter,columnCounter).color == TileColor.RED && this.getPieceAt(rowCounter,columnCounter).figure == FigureType.KNIGHT){
+                    print("RS \t" )
+                }
+                else{
+                    print("N \t")
+                }
+
+            }
+            println()
+        }
+    }
 }
