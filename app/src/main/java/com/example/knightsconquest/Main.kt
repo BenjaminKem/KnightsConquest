@@ -14,4 +14,6 @@ fun main() {
 
     gameBoard.printBoard()
 
+    val cardCreator = CardCreator()
+    cardCreator.createCardList()
 }
