@@ -26,7 +26,6 @@ class GameBoard {
 
         val clickedPiece = this.getPieceAt(fromX, fromY)
         val destinationPiece = this.getPieceAt(toX, toY)
-        var movementArray = checkCardMovement(card,fromX, fromY, toX, toY)
 
         //Bewegung außerhalb des Spielfeldes ist nicht möglich
         if(toX >= 5  || toY >= 5){
@@ -45,17 +44,16 @@ class GameBoard {
         return true
     }
     fun checkCardMovement(card: Card, fromX: Int, fromY: Int, toX: Int, toY: Int):Boolean{
+        card.movements.get(0).get(0)
+        for(movementPatternCounter in 0 until card.movementCount){
+            val xMovement = card.movements.get(movementPatternCounter).get(0)
+            val yMovement = card.movements.get(movementPatternCounter).get(1)
 
-        for(movement in card.movements){
-            val xMovement = movement[0]
-            val yMovement = movement[1]
-
-            if(fromX + xMovement != toX || fromY+yMovement != toY){
-                return false
+            if(fromX + xMovement == toX && fromY+yMovement == toY){
+                return true
             }
         }
-
-        return true
+        return false
     }
     fun makeMove(card: Card,fromX: Int, fromY: Int, toX: Int, toY: Int) {
         // Führt den Zug von (fromX, fromY) nach (toX, toY) aus.
