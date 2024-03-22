@@ -6,7 +6,7 @@ import java.io.File
 import java.util.Random
 
 class CardCreator {
-    fun createCardList(): List<Card> {
+    private fun createCardList(): List<Card> {
         val objectMapper = jacksonObjectMapper()
         val file = File("app/src/main/res/raw/cards.json")
         val cardList = mutableListOf<Card>()

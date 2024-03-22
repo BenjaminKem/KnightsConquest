@@ -1,13 +1,11 @@
 package com.example.knightsconquest
 
-import android.graphics.Color
-
 class GameBoard {
     private val size = 5
     private val board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
     private var turnIndicator : TileColor = TileColor.RED
-    private var redWon = false;
-    private var blueWon = false;
+    private var redWon = false
+    private var blueWon = false
     fun init (){
         for(count in 0..4){
             if(count == 2){
@@ -20,12 +18,12 @@ class GameBoard {
         }
     }
 
-    fun getPieceAt(x: Int, y: Int): Tile {
+    private fun getPieceAt(x: Int, y: Int): Tile {
         // Gibt den Spielstein an der Position (x, y) zurück.
         return board[x][y]
     }
 
-    fun isValidMove(card: Card, fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
+    private fun isValidMove(card: Card, fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
         // Überprüft, ob der Zug von (fromX, fromY) nach (toX, toY) gültig ist.
 
         val clickedPiece = this.getPieceAt(fromX, fromY)
@@ -34,11 +32,11 @@ class GameBoard {
         //Bewegung außerhalb des Spielfeldes ist nicht möglich
         if(toX >= 5  || toY >= 5){
             println("Bewegung verlässt das Feld")
-            return false;
+            return false
         }
         else if (toX < 0 ||  toY < 0){
             println("Bewegung verlässt das Feld")
-            return false;
+            return false
         }
         //Bewegung auf ein Feld mit der selben Farbe ist nicht möglich
         else if(clickedPiece.color == destinationPiece.color){
@@ -55,14 +53,14 @@ class GameBoard {
         }
         return true
     }
-    fun checkCardMovement(card: Card, fromX: Int, fromY: Int, toX: Int, toY: Int):Boolean{
-        card.movements.get(0).get(0)
+    private fun checkCardMovement(card: Card, fromX: Int, fromY: Int, toX: Int, toY: Int):Boolean{
+        card.movements[0][0]
         for(movementPatternCounter in 0 until card.movementCount){
-            var xMovement = card.movements.get(movementPatternCounter).get(0)
-            var yMovement = card.movements.get(movementPatternCounter).get(1)
+            var xMovement = card.movements[movementPatternCounter][0]
+            var yMovement = card.movements[movementPatternCounter][1]
             if(turnIndicator == TileColor.RED){
-                xMovement = xMovement*-1
-                yMovement = yMovement*-1
+                xMovement *= -1
+                yMovement *= -1
             }
             if(fromX + xMovement == toX && fromY+yMovement == toY){
                 return true
@@ -80,16 +78,16 @@ class GameBoard {
             //einsetzen an neuer Position
             board[toX][toY] = tempTile
             didSomeoneWin()
-            if (turnIndicator == TileColor.RED){
+            turnIndicator = if (turnIndicator == TileColor.RED){
                 println("Blue Turn")
-                turnIndicator = TileColor.BLUE
+                TileColor.BLUE
             }else{
                 println("Red Turn")
-                turnIndicator = TileColor.RED
+                TileColor.RED
             }
         }
     }
-    fun didSomeoneWin() : Boolean{
+    private fun didSomeoneWin() : Boolean{
         //zum tracken ob die Könige noch leben
         var blueKingAlive = false
         var redKingAlive = false

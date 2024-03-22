@@ -60,7 +60,7 @@ class MainScreen : AppCompatActivity() {
             startActivity(soloPlayScreen)
         }
     }
-    fun startBackgroundMusic() {
+    private fun startBackgroundMusic() {
         if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer.create(this, R.raw.titlemusic)
             mediaPlayer?.isLooping = true

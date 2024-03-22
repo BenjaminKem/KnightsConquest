@@ -1,6 +1,6 @@
 package com.example.knightsconquest
 
-class Card(val name: String, val movementCount: Int, val movements: Array<Array<Int>>, val imageUrl: String) {
+class Card(private val name: String, val movementCount: Int, val movements: Array<Array<Int>>, private val imageUrl: String) {
     init {
         // println("Eine neue Karte mit dem Namen $name und den Bewegungen ${movements.contentDeepToString()} wurde erstellt.")
     }
