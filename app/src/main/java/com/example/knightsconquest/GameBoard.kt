@@ -1,8 +1,11 @@
 package com.example.knightsconquest
 
+import android.graphics.Color
+
 class GameBoard {
     private val size = 5
     private val board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
+    private var turnIndicator : TileColor = TileColor.RED
     private var redWon = false;
     private var blueWon = false;
     fun init (){
@@ -30,16 +33,24 @@ class GameBoard {
 
         //Bewegung außerhalb des Spielfeldes ist nicht möglich
         if(toX >= 5  || toY >= 5){
+            println("Bewegung verlässt das Feld")
             return false;
         }
         else if (toX < 0 ||  toY < 0){
+            println("Bewegung verlässt das Feld")
             return false;
         }
         //Bewegung auf ein Feld mit der selben Farbe ist nicht möglich
         else if(clickedPiece.color == destinationPiece.color){
+            println("Du kannst nicht deinen eigene Figur schlagen")
+            return false
+        }
+        else if(clickedPiece.color != turnIndicator){
+            println("Andere Farbe ist dran")
             return false
         }
         else if(!(checkCardMovement(card,fromX, fromY, toX, toY))){
+            println("Bewegung passt nicht zu Karte")
             return false
         }
         return true
@@ -47,9 +58,12 @@ class GameBoard {
     fun checkCardMovement(card: Card, fromX: Int, fromY: Int, toX: Int, toY: Int):Boolean{
         card.movements.get(0).get(0)
         for(movementPatternCounter in 0 until card.movementCount){
-            val xMovement = card.movements.get(movementPatternCounter).get(0)
-            val yMovement = card.movements.get(movementPatternCounter).get(1)
-
+            var xMovement = card.movements.get(movementPatternCounter).get(0)
+            var yMovement = card.movements.get(movementPatternCounter).get(1)
+            if(turnIndicator == TileColor.RED){
+                xMovement = xMovement*-1
+                yMovement = yMovement*-1
+            }
             if(fromX + xMovement == toX && fromY+yMovement == toY){
                 return true
             }
@@ -60,14 +74,20 @@ class GameBoard {
         // Führt den Zug von (fromX, fromY) nach (toX, toY) aus.
         // Aktualisiere das Spielbrett und die Spielsteine.
         if(isValidMove(card,fromX,fromY,toX,toY)){
-
             val tempTile = Tile((this.getPieceAt(fromX, fromY)).color, (this.getPieceAt(fromX, fromY)).figure)
             //löschen an alter Position
             board[fromX][fromY] =Tile(TileColor.NEUTRAL, FigureType.NONE)
             //einsetzen an neuer Position
             board[toX][toY] = tempTile
+            didSomeoneWin()
+            if (turnIndicator == TileColor.RED){
+                println("Blue Turn")
+                turnIndicator = TileColor.BLUE
+            }else{
+                println("Red Turn")
+                turnIndicator = TileColor.RED
+            }
         }
-        didSomeoneWin()
     }
     fun didSomeoneWin() : Boolean{
         //zum tracken ob die Könige noch leben
