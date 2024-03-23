@@ -14,13 +14,13 @@ class GameLoop {
         for (card in fiveRandomCards) {
             cardNames.add(card.name)
         }
-        println("Die Namen der ausgewählten Karten sind: ${cardNames.joinToString(", ")}")
+        println("Die Namen der generierten Karten sind: ${cardNames.joinToString(", ")}")
 
         var iterator = 0
         gameBoard.printBoard()
 
         while(!(gameBoard.didSomeoneWin())){
-            println("Enter your movement:")
+            println("Gib deine Bewegung ein:")
             var input = readlnOrNull()
             var movementCmd = input?.split(" ")
 
@@ -38,11 +38,11 @@ class GameLoop {
 
                     gameBoard.makeMove(fiveRandomCards[iterator], startX, startY, destinationX, destinationY)
                 }else{
-                    println("Irregular Move: A Movement consists of four values separated by a whitespace")
+                    println("Ungültige Bewegung: Eine Bewegung besteht aus vier Koordinaten")
                 }
                 gameBoard.printBoard()
             }else{
-                println("No Movement was entered")
+                println("Es wurde keine Bewegung eingegeben")
             }
             iterator++
         }
