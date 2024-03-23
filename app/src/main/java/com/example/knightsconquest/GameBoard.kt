@@ -3,7 +3,7 @@ package com.example.knightsconquest
 class GameBoard {
     private val size = 5
     private val board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
-    private var turnIndicator : TileColor = TileColor.RED
+    var turnIndicator : TileColor = TileColor.RED
     private var redWon = false
     private var blueWon = false
     fun init (){
