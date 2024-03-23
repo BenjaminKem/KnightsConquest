@@ -48,7 +48,7 @@ class GameBoard {
             return false
         }
         else if(!(checkCardMovement(card,fromX, fromY, toX, toY))){
-            println("Bewegung passt nicht zu Karte")
+            println("Bewegung passt nicht zur Karte")
             return false
         }
         return true
@@ -58,6 +58,7 @@ class GameBoard {
         for(movementPatternCounter in 0 until card.movementCount){
             var xMovement = card.movements[movementPatternCounter][0]
             var yMovement = card.movements[movementPatternCounter][1]
+
             if(turnIndicator == TileColor.RED){
                 xMovement *= -1
                 yMovement *= -1
@@ -87,7 +88,7 @@ class GameBoard {
             }
         }
     }
-    private fun didSomeoneWin() : Boolean{
+    fun didSomeoneWin() : Boolean{
         //zum tracken ob die Könige noch leben
         var blueKingAlive = false
         var redKingAlive = false
