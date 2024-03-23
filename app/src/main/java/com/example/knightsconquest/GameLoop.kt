@@ -9,8 +9,14 @@ class GameLoop {
         gameBoard.init()
         val cardCreator = CardCreator()
         val fiveRandomCards = cardCreator.getFiveRandomCards()
-        var iterator = 0
 
+        val cardNames = mutableListOf<String>()
+        for (card in fiveRandomCards) {
+            cardNames.add(card.name)
+        }
+        println("Die Namen der ausgewählten Karten sind: ${cardNames.joinToString(", ")}")
+
+        var iterator = 0
         gameBoard.printBoard()
 
         while(!(gameBoard.didSomeoneWin())){
