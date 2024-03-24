@@ -18,7 +18,7 @@ class GameBoard {
         }
     }
 
-    private fun getPieceAt(x: Int, y: Int): Tile {
+    fun getPieceAt(x: Int, y: Int): Tile {
         // Gibt den Spielstein an der Position (x, y) zurück.
         return board[x][y]
     }
