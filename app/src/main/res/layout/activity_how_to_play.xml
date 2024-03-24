@@ -8,10 +8,11 @@
     tools:context=".HowToPlay">
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="626dp"
-        android:layout_height="877dp"
-        app:srcCompat="@drawable/howtoplay"
-        tools:layout_editor_absoluteX="-108dp"
-        tools:layout_editor_absoluteY="-73dp" />
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/howtoplay" />
 </androidx.constraintlayout.widget.ConstraintLayout>
