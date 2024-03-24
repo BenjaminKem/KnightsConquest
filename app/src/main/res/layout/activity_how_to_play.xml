@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HowToPlay">
+    tools:context=".MainScreen">
+
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="626dp"
-        android:layout_height="877dp"
-        app:srcCompat="@drawable/howtoplay"
-        tools:layout_editor_absoluteX="-108dp"
-        tools:layout_editor_absoluteY="-73dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/mainscreen"
+        tools:srcCompat="@drawable/howtoplay" />
+
+
+</RelativeLayout>
