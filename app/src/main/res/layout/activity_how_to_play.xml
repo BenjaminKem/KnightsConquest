@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainLayout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainScreen">
+    tools:context=".HowToPlay">
 
 
     <ImageView
@@ -15,8 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/mainscreen"
-        tools:srcCompat="@drawable/howtoplay" />
+        app:srcCompat="@drawable/howtoplay" />
 
 
 </RelativeLayout>
