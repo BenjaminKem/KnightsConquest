@@ -21,43 +21,41 @@ class GameLoop {
         blueCards.addAll(fiveRandomCards.slice(2 until 4))
         stack.addAll(fiveRandomCards.takeLast(1))
 
-        /*val cardNames = mutableListOf<String>()
-        for (card in fiveRandomCards) {
-            cardNames.add(card.name)
-        }
-        println("Die Namen der generierten Karten sind: ${cardNames.joinToString(", ")}")*/
-
-        var iterator = 0
         gameBoard.printBoard()
 
         while(!(gameBoard.didSomeoneWin())){
+            if(gameBoard.turnIndicator == TileColor.RED){
+                println("Rote Karten: ${redCards.joinToString { it.name }}")
+                println("Stapel: ${stack[0].name}")
+            }else{
+                println("Blaue Karten: ${blueCards.joinToString { it.name }}")
+                println("Stapel: ${stack[0].name}")
+            }
+
             //Eine der generierten Karten wird ausgewählt
             println("Wähle eine Karte aus:")
             var selectedCard = readlnOrNull()
-            var removedCard: Card
+            var removedCard: Card? = null
 
-            // Zug für Rot, nur auf rote Karten zugreifen
-            //TODO ich muss hier einiges noch überarbeiten und fertigstellen vllt. chat fragen
+            // Zug für Rot, nur auf rote Karten zugreifen und die Karten rotieren
             if (gameBoard.turnIndicator == TileColor.RED) {
-                for(card in redCards){
-                    if(selectedCard == redCards[0].name)
-                        removedCard = redCards[card]
-                        break
+                val redIndex = redCards.indexOfFirst { it.name == selectedCard }
+                if (redIndex != -1) {
+                    removedCard = redCards[redIndex]
+                    redCards.removeAt(redIndex)
+                    stack.add(0, removedCard)
                 }
 
-                removedCard = redCards[0]
             } else if (gameBoard.turnIndicator == TileColor.BLUE) {
-                // Zug für Blau, nur auf blaue Karten zugreifen
-                for(card in blueCards){
-                    if(selectedCard == blueCards[0].name){
-                        removedCard = blueCards[card]
-                        break
-                    }
+                // Zug für Blau, nur auf blaue Karten zugreifen und die Karten rotieren
+                val blueIndex = blueCards.indexOfFirst { it.name == selectedCard }
+                if (blueIndex != -1) {
+                    removedCard = stack[blueIndex]
+                    stack.removeAt(blueIndex)
+                    blueCards.add(0, removedCard)
                 }
-
 
             }
-
 
             //Nach der Auswahl der Karte muss die dazugehörige Bewegung ausgewählt werden
             println("Gib deine Bewegung ein:")
@@ -73,17 +71,13 @@ class GameLoop {
                     val destinationX = movementCmd[2].toInt()
                     val destinationY = movementCmd[3].toInt()
 
-                    //TODO hier muss als Übergabeparameter noch die "removedCard" eingefügt werden und berichtigen
-                    gameBoard.makeMove(removedCard, startX, startY, destinationX, destinationY)
+                    if (removedCard != null) {
+                        gameBoard.makeMove(removedCard, startX, startY, destinationX, destinationY)
+                        //TODO Es soll nur dann aus den Farblisten entnommen werden wenn die bewegung erfolgreich war
+                    }
                 }else{
                     println("Ungültige Bewegung: Eine Bewegung besteht aus vier Koordinaten")
                 }
-
-                //Drei Kartenlisten
-                //TODO ich muss das mit dem Anzeigen richtig machen und das muss noch an die richtige Stelle kommen
-                println("Rote Karten: ${redCards.joinToString { it.name }}")
-                println("Blaue Karten: ${blueCards.joinToString { it.name }}")
-                println("Stapel: ${stack[0].name}")
 
                 gameBoard.printBoard()
             }else{
