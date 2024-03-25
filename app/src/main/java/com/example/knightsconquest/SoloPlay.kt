@@ -127,19 +127,27 @@ class SoloPlay : AppCompatActivity() {
 
         val topLeftPanel = findViewById<Button>(R.id.TopLeftCard)
         topLeftPanel.setOnClickListener{
-            selectedCard = game.getRedCard(0)
+            if(game.gameBoard.turnIndicator == TileColor.RED){
+                selectedCard = game.getRedCard(0)
+            }
         }
         val topMidPanel = findViewById<Button>(R.id.TopMidCard)
         topMidPanel.setOnClickListener{
-            selectedCard = game.getRedCard(1)
+            if(game.gameBoard.turnIndicator == TileColor.RED){
+                selectedCard = game.getRedCard(1)
+            }
         }
         val bottomLeftPanel = findViewById<Button>(R.id.BottomLeftCard)
         bottomLeftPanel.setOnClickListener{
-            selectedCard = game.getBlueCard(0)
+            if(game.gameBoard.turnIndicator == TileColor.BLUE) {
+                selectedCard = game.getBlueCard(0)
+            }
         }
         val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
         bottomMidPanel.setOnClickListener{
-            selectedCard = game.getBlueCard(1)
+            if(game.gameBoard.turnIndicator == TileColor.BLUE) {
+                selectedCard = game.getBlueCard(1)
+            }
         }
     }
     private fun updateGameBoard(gameBoard: GameBoard){
@@ -213,17 +221,18 @@ class SoloPlay : AppCompatActivity() {
                     selectedCard = null
                 }
                 selectedField = arrayOf(row, col)
-                if(game.makeMove(selectedCard!!,selectedFigure!!,selectedField!!)){
-                    selectedField = arrayOf(row, col)
-                    updateGameBoard(game.gameBoard)
-                    if(game.gameBoard.didSomeoneWin()){
-                        val HowToPlay = Intent(this, HowToPlay::class.java)
-                        startActivity(HowToPlay)
+                if(selectedFigure != null && selectedCard != null){
+                    if(game.makeMove(selectedCard!!,selectedFigure!!,selectedField!!)){
+                        selectedField = arrayOf(row, col)
+                        updateGameBoard(game.gameBoard)
+                        if(game.gameBoard.didSomeoneWin()){
+                            val HowToPlay = Intent(this, HowToPlay::class.java)
+                            startActivity(HowToPlay)
+                        }
                     }
                 }
             } else {
                 selectedFigure = arrayOf(row, col)
-                panel.isEnabled = false
             }
         }
     }
