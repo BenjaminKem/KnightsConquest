@@ -23,11 +23,8 @@ class GameBoard {
         return board[x][y]
     }
 
-    private fun isValidMove(card: Card, fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
+    fun isValidMove(card: Card, fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
         // Überprüft, ob der Zug von (fromX, fromY) nach (toX, toY) gültig ist.
-
-        val clickedPiece = this.getPieceAt(fromX, fromY)
-        val destinationPiece = this.getPieceAt(toX, toY)
 
         //Bewegung außerhalb des Spielfeldes ist nicht möglich
         if(toX >= 5  || toY >= 5){
@@ -38,8 +35,13 @@ class GameBoard {
             println("Bewegung verlässt das Feld")
             return false
         }
+
+        val clickedPiece = this.getPieceAt(fromX, fromY)
+        val destinationPiece = this.getPieceAt(toX, toY)
+
+
         //Bewegung auf ein Feld mit der selben Farbe ist nicht möglich
-        else if(clickedPiece.color == destinationPiece.color){
+        if(clickedPiece.color == destinationPiece.color){
             println("Du kannst nicht deinen eigene Figur schlagen")
             return false
         }

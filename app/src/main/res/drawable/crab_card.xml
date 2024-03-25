@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Zustand, wenn der Button ausgewählt (selected) ist -->
+    <item android:drawable="@drawable/crabmovement_pressed" android:state_selected="true" />
+    <!-- Standardzustand, wenn der Button nicht ausgewählt ist -->
+    <item android:drawable="@drawable/crabmovement" />
+</selector>

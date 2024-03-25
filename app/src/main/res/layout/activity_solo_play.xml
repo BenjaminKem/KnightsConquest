@@ -6,7 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SoloPlay">
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/gamescreenbackground" />
     <Button
         android:id="@+id/backButtonSoloPlayScreen"
         android:layout_width="45dp"
@@ -334,7 +341,8 @@
             android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:foreground="@drawable/elefantmovement" />
+            android:foreground="@drawable/elefantmovement"
+            android:alpha="0.5"/>
     </GridLayout>
 
     <GridLayout
@@ -376,7 +384,8 @@
             android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:foreground="@drawable/elefantmovement" />
+            android:foreground="@drawable/elefantmovement"
+            android:alpha="0.5"/>
     </GridLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,25 +12,25 @@ import androidx.core.view.WindowInsetsCompat
 class SoloPlay : AppCompatActivity() {
     val game = GameController(this)
     var selectedFigure: Array<Int>? = null
-    var selectedCard : Card? = null
+    var selectedCard: Card? = null
     var selectedField: Array<Int>? = null
     val cardDrawables = mapOf(
-        "boar" to R.drawable.boarmovement,
-        "cobra" to R.drawable.cobramovement,
-        "crab" to R.drawable.crabmovement,
-        "crane" to R.drawable.cranemovement,
-        "dragon" to R.drawable.dragonmovement,
-        "eel" to R.drawable.eelmovement,
-        "elefant" to R.drawable.elefantmovement,
-        "frog" to R.drawable.frogmovement,
-        "goose" to R.drawable.goosemovement,
-        "horse" to R.drawable.horsemovement,
-        "mantis" to R.drawable.mantismovement,
-        "monkey" to R.drawable.monkeymovement,
-        "ox" to R.drawable.oxmovement,
-        "rabbit" to R.drawable.rabbitmovement,
-        "rooster" to R.drawable.roostermovement,
-        "tiger" to R.drawable.tigermovement
+        "boar" to R.drawable.boar_card,
+        "cobra" to R.drawable.cobra_card,
+        "crab" to R.drawable.crab_card,
+        "crane" to R.drawable.crane_card,
+        "dragon" to R.drawable.dragon_card,
+        "eel" to R.drawable.eel_card,
+        "elefant" to R.drawable.elefant_card,
+        "frog" to R.drawable.frog_card,
+        "goose" to R.drawable.goose_card,
+        "horse" to R.drawable.horse_card,
+        "mantis" to R.drawable.mantis_card,
+        "monkey" to R.drawable.monkey_card,
+        "ox" to R.drawable.ox_card,
+        "rabbit" to R.drawable.rabbit_card,
+        "rooster" to R.drawable.rooster_card,
+        "tiger" to R.drawable.tiger_card
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,114 +126,251 @@ class SoloPlay : AppCompatActivity() {
         setPanelClickListener(panel4_4, 4, 4)
 
         val topLeftPanel = findViewById<Button>(R.id.TopLeftCard)
-        topLeftPanel.setOnClickListener{
-            if(game.gameBoard.turnIndicator == TileColor.RED){
+        val topMidPanel = findViewById<Button>(R.id.TopMidCard)
+        topLeftPanel.setOnClickListener {
+            if (game.gameBoard.turnIndicator == TileColor.RED) {
                 selectedCard = game.getRedCard(0)
+                topMidPanel.isSelected = false
+                topLeftPanel.isSelected = true
+                if(selectedFigure != null){
+                    deselectEverything()
+                    highlightPossibleMoves()
+                }
             }
         }
-        val topMidPanel = findViewById<Button>(R.id.TopMidCard)
-        topMidPanel.setOnClickListener{
-            if(game.gameBoard.turnIndicator == TileColor.RED){
+        topMidPanel.setOnClickListener {
+            if (game.gameBoard.turnIndicator == TileColor.RED) {
                 selectedCard = game.getRedCard(1)
+                topMidPanel.isSelected = true
+                topLeftPanel.isSelected = false
+                if(selectedFigure != null){
+                    deselectEverything()
+                    highlightPossibleMoves()
+                }
             }
         }
         val bottomLeftPanel = findViewById<Button>(R.id.BottomLeftCard)
-        bottomLeftPanel.setOnClickListener{
-            if(game.gameBoard.turnIndicator == TileColor.BLUE) {
+        val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
+        bottomLeftPanel.setOnClickListener {
+            if (game.gameBoard.turnIndicator == TileColor.BLUE) {
                 selectedCard = game.getBlueCard(0)
+                bottomLeftPanel.isSelected = true
+                bottomMidPanel.isSelected = false
+                if(selectedFigure != null){
+                    deselectEverything()
+                    highlightPossibleMoves()
+                }
             }
         }
-        val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
-        bottomMidPanel.setOnClickListener{
-            if(game.gameBoard.turnIndicator == TileColor.BLUE) {
+        bottomMidPanel.setOnClickListener {
+            if (game.gameBoard.turnIndicator == TileColor.BLUE) {
                 selectedCard = game.getBlueCard(1)
+                bottomLeftPanel.isSelected = false
+                bottomMidPanel.isSelected = true
+                if(selectedFigure != null){
+                    deselectEverything()
+                    highlightPossibleMoves()
+                }
             }
         }
     }
-    private fun updateGameBoard(gameBoard: GameBoard){
+
+    private fun updateGameBoard(gameBoard: GameBoard) {
         for (rowCounter in 0..4) {
             for (columnCounter in 0..4) {
-                if(gameBoard.getPieceAt(rowCounter,columnCounter).figure == FigureType.KNIGHT && gameBoard.getPieceAt(rowCounter,columnCounter).color == TileColor.RED){
+                if (gameBoard.getPieceAt(
+                        rowCounter,
+                        columnCounter
+                    ).figure == FigureType.KNIGHT && gameBoard.getPieceAt(
+                        rowCounter,
+                        columnCounter
+                    ).color == TileColor.RED
+                ) {
+                    val panelId = resources.getIdentifier(
+                        "Panel$rowCounter" + "_$columnCounter",
+                        "id",
+                        packageName
+                    )
+                    val panelToChange = findViewById<Button>(panelId)
+                    panelToChange.foreground =
+                        ContextCompat.getDrawable(this, R.drawable.redknightpanel)
+                } else if (gameBoard.getPieceAt(
+                        rowCounter,
+                        columnCounter
+                    ).figure == FigureType.KNIGHT && gameBoard.getPieceAt(
+                        rowCounter,
+                        columnCounter
+                    ).color == TileColor.BLUE
+                ) {
+                    val panelId = resources.getIdentifier(
+                        "Panel$rowCounter" + "_$columnCounter",
+                        "id",
+                        packageName
+                    )
+                    val panelToChange = findViewById<Button>(panelId)
+                    panelToChange.foreground =
+                        ContextCompat.getDrawable(this, R.drawable.blueknightpanel)
+                } else if (gameBoard.getPieceAt(
+                        rowCounter,
+                        columnCounter
+                    ).figure == FigureType.KING && gameBoard.getPieceAt(
+                        rowCounter,
+                        columnCounter
+                    ).color == TileColor.BLUE
+                ) {
+                    val panelId = resources.getIdentifier(
+                        "Panel$rowCounter" + "_$columnCounter",
+                        "id",
+                        packageName
+                    )
+                    val panelToChange = findViewById<Button>(panelId)
+                    panelToChange.foreground =
+                        ContextCompat.getDrawable(this, R.drawable.bluekingpanel)
+                } else if (gameBoard.getPieceAt(
+                        rowCounter,
+                        columnCounter
+                    ).figure == FigureType.KING && gameBoard.getPieceAt(
+                        rowCounter,
+                        columnCounter
+                    ).color == TileColor.RED
+                ) {
+                    val panelId = resources.getIdentifier(
+                        "Panel$rowCounter" + "_$columnCounter",
+                        "id",
+                        packageName
+                    )
+                    val panelToChange = findViewById<Button>(panelId)
+                    panelToChange.foreground =
+                        ContextCompat.getDrawable(this, R.drawable.redkingpanel)
+                } else {
                     val panelId = resources.getIdentifier("Panel$rowCounter" + "_$columnCounter", "id", packageName)
                     val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground = ContextCompat.getDrawable(this,R.drawable.redknightpanel)
-                }else if(gameBoard.getPieceAt(rowCounter,columnCounter).figure == FigureType.KNIGHT && gameBoard.getPieceAt(rowCounter,columnCounter).color == TileColor.BLUE){
-                    val panelId = resources.getIdentifier("Panel$rowCounter" + "_$columnCounter", "id", packageName)
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground = ContextCompat.getDrawable(this,R.drawable.blueknightpanel)
-                }else if(gameBoard.getPieceAt(rowCounter,columnCounter).figure == FigureType.KING && gameBoard.getPieceAt(rowCounter,columnCounter).color == TileColor.BLUE){
-                    val panelId = resources.getIdentifier("Panel$rowCounter" + "_$columnCounter", "id", packageName)
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground = ContextCompat.getDrawable(this,R.drawable.bluekingpanel)
-                }else if(gameBoard.getPieceAt(rowCounter,columnCounter).figure == FigureType.KING && gameBoard.getPieceAt(rowCounter,columnCounter).color == TileColor.RED){
-                    val panelId = resources.getIdentifier("Panel$rowCounter" + "_$columnCounter", "id", packageName)
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground = ContextCompat.getDrawable(this,R.drawable.redkingpanel)
-                }else{
-                    val panelId = resources.getIdentifier("Panel$rowCounter" + "_$columnCounter", "id", packageName)
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground = ContextCompat.getDrawable(this,R.drawable.panel)
+                    panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel)
                 }
                 var cardName = game.getRedCard(0).name
-                var drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                var drawableResId = cardDrawables[cardName]
+                    ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
                 var drawable = ContextCompat.getDrawable(this, drawableResId)
                 val topLeftCard = findViewById<Button>(R.id.TopLeftCard)
                 topLeftCard.foreground = drawable
 
                 cardName = game.getRedCard(1).name
-                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawableResId = cardDrawables[cardName]
+                    ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
                 drawable = ContextCompat.getDrawable(this, drawableResId)
                 val topMidCard = findViewById<Button>(R.id.TopMidCard)
                 topMidCard.foreground = drawable
 
                 cardName = game.getStackCard().name
-                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawableResId = cardDrawables[cardName]
+                    ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
                 drawable = ContextCompat.getDrawable(this, drawableResId)
                 val topRightCard = findViewById<Button>(R.id.TopRightCard)
                 topRightCard.foreground = drawable
 
                 cardName = game.getBlueCard(0).name
-                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawableResId = cardDrawables[cardName]
+                    ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
                 drawable = ContextCompat.getDrawable(this, drawableResId)
                 val bottomLeftCard = findViewById<Button>(R.id.BottomLeftCard)
                 bottomLeftCard.foreground = drawable
 
                 cardName = game.getBlueCard(1).name
-                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawableResId = cardDrawables[cardName]
+                    ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
                 drawable = ContextCompat.getDrawable(this, drawableResId)
                 val bottomMidCard = findViewById<Button>(R.id.BottomMidCard)
                 bottomMidCard.foreground = drawable
 
                 cardName = game.getStackCard().name
-                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawableResId = cardDrawables[cardName]
+                    ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
                 drawable = ContextCompat.getDrawable(this, drawableResId)
                 val bottomRightCard = findViewById<Button>(R.id.BottomRightCard)
                 bottomRightCard.foreground = drawable
             }
         }
+        deselectEverything()
     }
+
     // Eine Funktion, die das Klicken auf die Panels handhabt
     fun setPanelClickListener(panel: Button, row: Int, col: Int) {
         panel.setOnClickListener {
             if (game.gameBoard.getPieceAt(row, col).figure == FigureType.NONE || game.gameBoard.getPieceAt(row, col).color != game.gameBoard.turnIndicator) {
-                if(selectedFigure == null || selectedCard == null) {
+                if (selectedFigure == null || selectedCard == null) {
                     selectedFigure = null
                     selectedCard = null
+                    deselectEverything()
                 }
                 selectedField = arrayOf(row, col)
-                if(selectedFigure != null && selectedCard != null){
-                    if(game.makeMove(selectedCard!!,selectedFigure!!,selectedField!!)){
+                if (selectedFigure != null && selectedCard != null) {
+                    if (game.makeMove(selectedCard!!, selectedFigure!!, selectedField!!)) {
                         selectedField = arrayOf(row, col)
                         updateGameBoard(game.gameBoard)
-                        if(game.gameBoard.didSomeoneWin()){
+                        if (game.gameBoard.didSomeoneWin()) {
                             val HowToPlay = Intent(this, HowToPlay::class.java)
                             startActivity(HowToPlay)
                         }
+                        selectedFigure = null
+                        selectedCard = null
+                        selectedField = null
+                    } else {
+                        selectedFigure = null
+                        selectedCard = null
+                        selectedField = null
+                        deselectEverything()
                     }
                 }
             } else {
                 selectedFigure = arrayOf(row, col)
+                panel.isSelected = true
+                if(selectedCard != null){
+                    deselectEverything()
+                    highlightPossibleMoves()
+                }
             }
         }
+    }
+
+    private fun highlightPossibleMoves() {
+        for (moves in selectedCard!!.movements){
+            var toXCord:Int? = null
+            var toYCord:Int? = null
+            if(game.gameBoard.turnIndicator == TileColor.RED){
+                toXCord = selectedFigure!![0] + moves[0]*-1
+                toYCord = selectedFigure!![1] + moves[1]*-1
+            }else{
+                toXCord = selectedFigure!![0] + moves[0]
+                toYCord = selectedFigure!![1] + moves[1]
+            }
+            if(game.gameBoard.isValidMove(selectedCard!!,selectedFigure!![0],selectedFigure!![1],toXCord,toYCord)){
+                val panelId = resources.getIdentifier("Panel$toXCord" + "_$toYCord", "id", packageName)
+                val panelToHighlight = findViewById<Button>(panelId)
+                panelToHighlight.isActivated = true
+            }
+        }
+    }
+
+    fun deselectEverything() {
+        for (rowCounter in 0..4) {
+            for (columnCounter in 0..4) {
+                val panelId = resources.getIdentifier(
+                    "Panel$rowCounter" + "_$columnCounter",
+                    "id",
+                    packageName
+                )
+                val panelToChange = findViewById<Button>(panelId)
+                panelToChange.isSelected = false;
+                panelToChange.isActivated = false
+            }
+        }
+        val topLeftPanel = findViewById<Button>(R.id.TopLeftCard)
+        val topMidPanel = findViewById<Button>(R.id.TopMidCard)
+        val bottomLeftPanel = findViewById<Button>(R.id.BottomLeftCard)
+        val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
+        topLeftPanel.isSelected = false
+        topMidPanel.isSelected = false
+        bottomLeftPanel.isSelected = false
+        bottomMidPanel.isSelected = false
     }
 }
