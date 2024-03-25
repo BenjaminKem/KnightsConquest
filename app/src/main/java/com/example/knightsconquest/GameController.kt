@@ -1,25 +1,25 @@
 package com.example.knightsconquest
+import  com.example.knightsconquest.*
+
+
 //TODO muss noch den Code aufräumen und gegebenenfalls refactorn nach dem die Änderungen funktioniert haben
 
-class GameLoop {
-    fun playGame(){
-        // Erstelle eine Instanz der GameBoard-Klasse
-        val gameBoard = GameBoard()
-
+class GameController {
+    val gameBoard = GameBoard()
+    val redCards = mutableListOf<Card>()
+    val blueCards = mutableListOf<Card>()
+    val stack = mutableListOf<Card>()
+    fun startGame(){
         // Initialisiere das Spielbrett und generiere die benötigten Karten
         gameBoard.init()
         val cardCreator = CardCreator()
         val fiveRandomCards = cardCreator.getFiveRandomCards()
-
-        //Die drei Kartenlisten werden hier generiert
-        val redCards = mutableListOf<Card>()
-        val blueCards = mutableListOf<Card>()
-        val stack = mutableListOf<Card>()
-
         //Aufteilen der Kartenliste in Farben
         redCards.addAll(fiveRandomCards.take(2))
         blueCards.addAll(fiveRandomCards.slice(2 until 4))
         stack.addAll(fiveRandomCards.takeLast(1))
+/*
+
 
         gameBoard.printBoard()
 
@@ -82,7 +82,14 @@ class GameLoop {
                 gameBoard.printBoard()
             }else{
                 println("Es wurde keine Bewegung eingegeben")
+
+
             }
         }
+
+    */
+    }
+    fun getBlueCard(index: Int): Card {
+        return blueCards.get(index)
     }
 }

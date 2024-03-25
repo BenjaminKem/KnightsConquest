@@ -37,12 +37,11 @@ class CardCreator {
         val cardList = createCardList()
         val fiveRandomCards = mutableListOf<Card>()
         val alreadyUsedRandomNumbers = mutableListOf<Int>()
-
         repeat(5) {
             var randomIndex: Int
             do {
-                randomIndex = random.nextInt(cardList.size)
-            } while (alreadyUsedRandomNumbers.contains(randomIndex))
+                randomIndex = random.nextInt(15)
+            } while (alreadyUsedRandomNumbers.contains(randomIndex) || randomIndex<0)
 
             alreadyUsedRandomNumbers.add(randomIndex)
             fiveRandomCards.add(cardList[randomIndex])

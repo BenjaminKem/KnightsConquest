@@ -10,10 +10,29 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class SoloPlay : AppCompatActivity() {
+    val game = GameController()
     val gameBoard = GameBoard()
     var selectedFigure: Array<Int>? = null
     var selectedCard : String? = null
     var selectedField: Array<Int>? = null
+    val cardDrawables = mapOf(
+        "boarmovement" to R.drawable.boarmovement,
+        "cobramovement" to R.drawable.cobramovement,
+        "crabmovement" to R.drawable.crabmovement,
+        "cranemovement" to R.drawable.cranemovement,
+        "dragonmovement" to R.drawable.dragonmovement,
+        "eelmovement" to R.drawable.eelmovement,
+        "elefantmovement" to R.drawable.elefantmovement,
+        "frogmovement" to R.drawable.frogmovement,
+        "goosemovement" to R.drawable.goosemovement,
+        "horsemovement" to R.drawable.horsemovement,
+        "mantismovement" to R.drawable.mantismovement,
+        "monkeymovement" to R.drawable.monkeymovement,
+        "oxmovement" to R.drawable.oxmovement,
+        "rabbitmovement" to R.drawable.rabbitmovement,
+        "roostermovement" to R.drawable.roostermovement,
+        "tigermovement" to R.drawable.tigermovement
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +43,8 @@ class SoloPlay : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        gameBoard.init()
-        updateGameBoard(gameBoard)
+        game.startGame()
+        updateGameBoard(game.gameBoard)
         val backButton: Button = findViewById(R.id.backButtonSoloPlayScreen)
         backButton.setOnClickListener {
             val mainScreen = Intent(this, MainScreen::class.java)
@@ -131,13 +150,17 @@ class SoloPlay : AppCompatActivity() {
                     val panelToChange = findViewById<Button>(panelId)
                     panelToChange.foreground = ContextCompat.getDrawable(this,R.drawable.panel)
                 }
+                //val cardName = game.getBlueCard(0).name
+
+                val topLeftCard = findViewById<Button>(R.id.TopLeftCard)
+
             }
         }
     }
     // Eine Funktion, die das Klicken auf die Panels handhabt
     fun setPanelClickListener(panel: Button, row: Int, col: Int) {
         panel.setOnClickListener {
-            if (gameBoard.getPieceAt(row, col).figure == FigureType.NONE) {
+            if (game.gameBoard.getPieceAt(row, col).figure == FigureType.NONE) {
                 selectedField = arrayOf(row, col)
             } else {
                 selectedFigure = arrayOf(row, col)

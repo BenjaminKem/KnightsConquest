@@ -1,6 +1,7 @@
 import com.example.knightsconquest.*
 
 fun main() {
-    val gameLoop = GameLoop()
-    gameLoop.playGame()
+    val gameController = GameController()
+    gameController.startGame()
+    print(gameController.blueCards[0].name)
 }
