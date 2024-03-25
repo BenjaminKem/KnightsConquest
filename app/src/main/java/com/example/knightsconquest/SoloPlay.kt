@@ -1,13 +1,16 @@
 package com.example.knightsconquest
 
 import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 
 class SoloPlay : AppCompatActivity() {
     val game = GameController(this)
@@ -49,6 +52,8 @@ class SoloPlay : AppCompatActivity() {
             val mainScreen = Intent(this, MainScreen::class.java)
             startActivity(mainScreen)
         }
+        val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
+        playerturnblue.isVisible = false
         // Panels initialisieren und Click Listener setzen
         val panel0_0 = findViewById<Button>(R.id.Panel0_0)
         setPanelClickListener(panel0_0, 0, 0)
@@ -314,6 +319,7 @@ class SoloPlay : AppCompatActivity() {
                         selectedFigure = null
                         selectedCard = null
                         selectedField = null
+                        changePlayTurn()
                     } else {
                         selectedFigure = null
                         selectedCard = null
@@ -329,6 +335,18 @@ class SoloPlay : AppCompatActivity() {
                     highlightPossibleMoves()
                 }
             }
+        }
+    }
+
+    private fun changePlayTurn() {
+        val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
+        val playerturnred = findViewById<ImageView>(R.id.playerturnred)
+        if(game.gameBoard.turnIndicator == TileColor.RED){
+            playerturnblue.isVisible = false
+            playerturnred.isVisible = true
+        }else{
+            playerturnred.isVisible = false
+            playerturnblue.isVisible = true
         }
     }
 
