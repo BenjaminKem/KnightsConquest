@@ -138,7 +138,7 @@ class SoloPlay : AppCompatActivity() {
                 topMidPanel.isSelected = false
                 topLeftPanel.isSelected = true
                 if(selectedFigure != null){
-                    deselectEverything()
+                    deselectHighlightedFields()
                     highlightPossibleMoves()
                 }
             }
@@ -149,7 +149,7 @@ class SoloPlay : AppCompatActivity() {
                 topMidPanel.isSelected = true
                 topLeftPanel.isSelected = false
                 if(selectedFigure != null){
-                    deselectEverything()
+                    deselectHighlightedFields()
                     highlightPossibleMoves()
                 }
             }
@@ -162,7 +162,7 @@ class SoloPlay : AppCompatActivity() {
                 bottomLeftPanel.isSelected = true
                 bottomMidPanel.isSelected = false
                 if(selectedFigure != null){
-                    deselectEverything()
+                    deselectHighlightedFields()
                     highlightPossibleMoves()
                 }
             }
@@ -173,7 +173,7 @@ class SoloPlay : AppCompatActivity() {
                 bottomLeftPanel.isSelected = false
                 bottomMidPanel.isSelected = true
                 if(selectedFigure != null){
-                    deselectEverything()
+                    deselectHighlightedFields()
                     highlightPossibleMoves()
                 }
             }
@@ -329,11 +329,26 @@ class SoloPlay : AppCompatActivity() {
                 }
             } else {
                 selectedFigure = arrayOf(row, col)
-                panel.isSelected = true
                 if(selectedCard != null){
-                    deselectEverything()
+                    deselectHighlightedFields()
+                    deselectFigures()
+                    panel.isSelected = true
                     highlightPossibleMoves()
                 }
+            }
+        }
+    }
+
+    private fun deselectFigures() {
+        for (rowCounter in 0..4) {
+            for (columnCounter in 0..4) {
+                val panelId = resources.getIdentifier("Panel$rowCounter" + "_$columnCounter", "id", packageName)
+                val panelToChange = findViewById<Button>(panelId)
+                if(game.gameBoard.getPieceAt(rowCounter,columnCounter).figure != FigureType.NONE){
+                    panelToChange.isSelected = false;
+                    panelToChange.isActivated = false
+                }
+
             }
         }
     }
@@ -390,5 +405,18 @@ class SoloPlay : AppCompatActivity() {
         topMidPanel.isSelected = false
         bottomLeftPanel.isSelected = false
         bottomMidPanel.isSelected = false
+    }
+    fun deselectHighlightedFields(){
+        for (rowCounter in 0..4) {
+            for (columnCounter in 0..4) {
+                val panelId = resources.getIdentifier(
+                    "Panel$rowCounter" + "_$columnCounter",
+                    "id",
+                    packageName
+                )
+                val panelToChange = findViewById<Button>(panelId)
+                panelToChange.isActivated = false
+            }
+        }
     }
 }
