@@ -322,7 +322,7 @@
             android:layout_columnWeight="1"
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
-            android:foreground="@drawable/elefantmovement" />
+            android:foreground="@drawable/tabpanellight" />
 
         <Button
             android:id="@+id/TopMidCard"
@@ -334,7 +334,7 @@
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:foreground="@drawable/elefantmovement" />
+            android:foreground="@drawable/tabpanellight" />
 
         <Button
             android:id="@+id/TopRightCard"
@@ -344,7 +344,8 @@
             android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:foreground="@drawable/elefantmovement" />
+            android:alpha="0.5"
+            android:foreground="@drawable/tabpanellight" />
     </GridLayout>
 
     <GridLayout
@@ -366,7 +367,7 @@
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:foreground="@drawable/elefantmovement" />
+            android:foreground="@drawable/tabpanellight" />
 
         <Button
             android:id="@+id/BottomMidCard"
@@ -376,7 +377,7 @@
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:foreground="@drawable/elefantmovement" />
+            android:foreground="@drawable/tabpanellight" />
 
         <Button
             android:id="@+id/BottomRightCard"
@@ -386,7 +387,8 @@
             android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:foreground="@drawable/elefantmovement" />
+            android:alpha="0.5"
+            android:foreground="@drawable/tabpanellight" />
     </GridLayout>
 
     <ImageView
