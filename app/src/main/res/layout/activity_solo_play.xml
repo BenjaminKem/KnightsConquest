@@ -344,7 +344,7 @@
             android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:alpha="0.8"
+            android:alpha="0.7"
             android:foreground="@drawable/tabpanellight" />
     </GridLayout>
 
@@ -387,7 +387,7 @@
             android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:alpha="0.8"
+            android:alpha="0.7"
             android:foreground="@drawable/tabpanellight" />
     </GridLayout>
 
