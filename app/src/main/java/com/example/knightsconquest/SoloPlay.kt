@@ -10,28 +10,27 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class SoloPlay : AppCompatActivity() {
-    val game = GameController()
-    val gameBoard = GameBoard()
+    val game = GameController(this)
     var selectedFigure: Array<Int>? = null
-    var selectedCard : String? = null
+    var selectedCard : Card? = null
     var selectedField: Array<Int>? = null
     val cardDrawables = mapOf(
-        "boarmovement" to R.drawable.boarmovement,
-        "cobramovement" to R.drawable.cobramovement,
-        "crabmovement" to R.drawable.crabmovement,
-        "cranemovement" to R.drawable.cranemovement,
-        "dragonmovement" to R.drawable.dragonmovement,
-        "eelmovement" to R.drawable.eelmovement,
-        "elefantmovement" to R.drawable.elefantmovement,
-        "frogmovement" to R.drawable.frogmovement,
-        "goosemovement" to R.drawable.goosemovement,
-        "horsemovement" to R.drawable.horsemovement,
-        "mantismovement" to R.drawable.mantismovement,
-        "monkeymovement" to R.drawable.monkeymovement,
-        "oxmovement" to R.drawable.oxmovement,
-        "rabbitmovement" to R.drawable.rabbitmovement,
-        "roostermovement" to R.drawable.roostermovement,
-        "tigermovement" to R.drawable.tigermovement
+        "boar" to R.drawable.boarmovement,
+        "cobra" to R.drawable.cobramovement,
+        "crab" to R.drawable.crabmovement,
+        "crane" to R.drawable.cranemovement,
+        "dragon" to R.drawable.dragonmovement,
+        "eel" to R.drawable.eelmovement,
+        "elefant" to R.drawable.elefantmovement,
+        "frog" to R.drawable.frogmovement,
+        "goose" to R.drawable.goosemovement,
+        "horse" to R.drawable.horsemovement,
+        "mantis" to R.drawable.mantismovement,
+        "monkey" to R.drawable.monkeymovement,
+        "ox" to R.drawable.oxmovement,
+        "rabbit" to R.drawable.rabbitmovement,
+        "rooster" to R.drawable.roostermovement,
+        "tiger" to R.drawable.tigermovement
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -125,6 +124,23 @@ class SoloPlay : AppCompatActivity() {
 
         val panel4_4 = findViewById<Button>(R.id.Panel4_4)
         setPanelClickListener(panel4_4, 4, 4)
+
+        val topLeftPanel = findViewById<Button>(R.id.TopLeftCard)
+        topLeftPanel.setOnClickListener{
+            selectedCard = game.getRedCard(0)
+        }
+        val topMidPanel = findViewById<Button>(R.id.TopMidCard)
+        topMidPanel.setOnClickListener{
+            selectedCard = game.getRedCard(1)
+        }
+        val bottomLeftPanel = findViewById<Button>(R.id.BottomLeftCard)
+        bottomLeftPanel.setOnClickListener{
+            selectedCard = game.getBlueCard(0)
+        }
+        val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
+        bottomMidPanel.setOnClickListener{
+            selectedCard = game.getBlueCard(1)
+        }
     }
     private fun updateGameBoard(gameBoard: GameBoard){
         for (rowCounter in 0..4) {
@@ -150,20 +166,64 @@ class SoloPlay : AppCompatActivity() {
                     val panelToChange = findViewById<Button>(panelId)
                     panelToChange.foreground = ContextCompat.getDrawable(this,R.drawable.panel)
                 }
-                //val cardName = game.getBlueCard(0).name
-
+                var cardName = game.getRedCard(0).name
+                var drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                var drawable = ContextCompat.getDrawable(this, drawableResId)
                 val topLeftCard = findViewById<Button>(R.id.TopLeftCard)
+                topLeftCard.foreground = drawable
 
+                cardName = game.getRedCard(1).name
+                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawable = ContextCompat.getDrawable(this, drawableResId)
+                val topMidCard = findViewById<Button>(R.id.TopMidCard)
+                topMidCard.foreground = drawable
+
+                cardName = game.getStackCard().name
+                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawable = ContextCompat.getDrawable(this, drawableResId)
+                val topRightCard = findViewById<Button>(R.id.TopRightCard)
+                topRightCard.foreground = drawable
+
+                cardName = game.getBlueCard(0).name
+                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawable = ContextCompat.getDrawable(this, drawableResId)
+                val bottomLeftCard = findViewById<Button>(R.id.BottomLeftCard)
+                bottomLeftCard.foreground = drawable
+
+                cardName = game.getBlueCard(1).name
+                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawable = ContextCompat.getDrawable(this, drawableResId)
+                val bottomMidCard = findViewById<Button>(R.id.BottomMidCard)
+                bottomMidCard.foreground = drawable
+
+                cardName = game.getStackCard().name
+                drawableResId = cardDrawables[cardName] ?: R.drawable.tabpanellight // Hier wird ein Standard-Drawable verwendet, falls die Karte nicht in der Map gefunden wird
+                drawable = ContextCompat.getDrawable(this, drawableResId)
+                val bottomRightCard = findViewById<Button>(R.id.BottomRightCard)
+                bottomRightCard.foreground = drawable
             }
         }
     }
     // Eine Funktion, die das Klicken auf die Panels handhabt
     fun setPanelClickListener(panel: Button, row: Int, col: Int) {
         panel.setOnClickListener {
-            if (game.gameBoard.getPieceAt(row, col).figure == FigureType.NONE) {
+            if (game.gameBoard.getPieceAt(row, col).figure == FigureType.NONE || game.gameBoard.getPieceAt(row, col).color != game.gameBoard.turnIndicator) {
+                if(selectedFigure == null || selectedCard == null) {
+                    selectedFigure = null
+                    selectedCard = null
+                }
                 selectedField = arrayOf(row, col)
+                if(game.makeMove(selectedCard!!,selectedFigure!!,selectedField!!)){
+                    selectedField = arrayOf(row, col)
+                    updateGameBoard(game.gameBoard)
+                    if(game.gameBoard.didSomeoneWin()){
+                        val HowToPlay = Intent(this, HowToPlay::class.java)
+                        startActivity(HowToPlay)
+                    }
+                }
             } else {
                 selectedFigure = arrayOf(row, col)
+                panel.isEnabled = false
             }
         }
     }

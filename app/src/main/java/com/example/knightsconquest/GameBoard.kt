@@ -69,7 +69,7 @@ class GameBoard {
         }
         return false
     }
-    fun makeMove(card: Card,fromX: Int, fromY: Int, toX: Int, toY: Int) {
+    fun makeMove(card: Card,fromX: Int, fromY: Int, toX: Int, toY: Int): Boolean {
         // Führt den Zug von (fromX, fromY) nach (toX, toY) aus.
         // Aktualisiere das Spielbrett und die Spielsteine.
         if(isValidMove(card,fromX,fromY,toX,toY)){
@@ -78,15 +78,9 @@ class GameBoard {
             board[fromX][fromY] =Tile(TileColor.NEUTRAL, FigureType.NONE)
             //einsetzen an neuer Position
             board[toX][toY] = tempTile
-            didSomeoneWin()
-            turnIndicator = if (turnIndicator == TileColor.RED){
-                println("Blue Turn")
-                TileColor.BLUE
-            }else{
-                println("Red Turn")
-                TileColor.RED
-            }
+            return true
         }
+        return false
     }
     fun didSomeoneWin() : Boolean{
         //zum tracken ob die Könige noch leben
@@ -147,6 +141,15 @@ class GameBoard {
                 }
             }
             println()
+        }
+    }
+    fun endTurn(){
+        turnIndicator = if (turnIndicator == TileColor.RED){
+            println("Blue Turn")
+            TileColor.BLUE
+        }else{
+            println("Red Turn")
+            TileColor.RED
         }
     }
 }
