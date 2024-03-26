@@ -162,5 +162,251 @@
       [-2, 0]
     ],
     "imageUrl": "@drawable/tigermovement"
+  },
+  {
+    "name": "bear",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [-1, -1],
+      [1, 1]
+    ],
+    "imageUrl": "@drawable/beatmovement"
+  },
+  {
+    "name": "cat",
+    "movementCount": 4,
+    "movements": [
+      [-1, 0],
+      [0, -1],
+      [0, 2],
+      [2, 0]
+    ],
+    "imageUrl": "@drawable/catmovement"
+  },
+  {
+    "name": "centipede",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [0, -1],
+      [2, 2]
+    ],
+    "imageUrl": "@drawable/centipedemovement"
+  },
+  {
+    "name": "dog",
+    "movementCount": 3,
+    "movements": [
+      [-1, -1],
+      [0, -1],
+      [1, -1]
+    ],
+    "imageUrl": "@drawable/dogmovement"
+  },
+  {
+    "name": "fox",
+    "movementCount": 3,
+    "movements": [
+      [-1, 1],
+      [0, 1],
+      [1, 1]
+    ],
+    "imageUrl": "@drawable/foxmovement"
+  },
+  {
+    "name": "giraffe",
+    "movementCount": 3,
+    "movements": [
+      [1, 0],
+      [-1, -2],
+      [-1, 2]
+    ],
+    "imageUrl": "@drawable/giraffemovement"
+  },
+  {
+    "name": "goat",
+    "movementCount": 3,
+    "movements": [
+      [0, -1],
+      [1, 0],
+      [-1, 1]
+    ],
+    "imageUrl": "@drawable/goatmovement"
+  },
+  {
+    "name": "hornet",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [0, 1],
+      [2, -2]
+    ],
+    "imageUrl": "@drawable/hornetmovement"
+  },
+  {
+    "name": "iguna",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [-1, -2],
+      [1, 1]
+    ],
+    "imageUrl": "@drawable/igunamovement"
+  },
+  {
+    "name": "kirin",
+    "movementCount": 3,
+    "movements": [
+      [-2, -1],
+      [-2, 1],
+      [2, 0]
+    ],
+    "imageUrl": "@drawable/kirinmovement"
+  },
+  {
+    "name": "lobster",
+    "movementCount": 4,
+    "movements": [
+      [-1, -1],
+      [-1, 1],
+      [2, -1],
+      [2, 1]
+    ],
+    "imageUrl": "@drawable/lobstermovement"
+  },
+  {
+    "name": "mouse",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [0, 1],
+      [1, -1]
+    ],
+    "imageUrl": "@drawable/mousemovement"
+  },
+  {
+    "name": "otter",
+    "movementCount": 3,
+    "movements": [
+      [-1, -1],
+      [1, 1],
+      [0, 2]
+    ],
+    "imageUrl": "@drawable/ottermovement"
+  },
+  {
+    "name": "panda",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [-1, 1],
+      [1, -1]
+    ],
+    "imageUrl": "@drawable/pandamovement"
+  },
+  {
+    "name": "phoenix",
+    "movementCount": 4,
+    "movements": [
+      [-1, 1],
+      [-1, -1],
+      [0, -2],
+      [0, 2]
+    ],
+    "imageUrl": "@drawable/phoenixmovement"
+  },
+  {
+    "name": "rat",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [0, -1],
+      [1, 1]
+    ],
+    "imageUrl": "@drawable/ratmovement"
+  },
+  {
+    "name": "sable",
+    "movementCount": 3,
+    "movements": [
+      [-1, 1],
+      [1, -1],
+      [0, -2]
+    ],
+    "imageUrl": "@drawable/sablemovement"
+  },
+  {
+    "name": "seasnake",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [0, 2],
+      [1, -1]
+    ],
+    "imageUrl": "@drawable/seasnakemovement"
+  },
+  {
+    "name": "serow",
+    "movementCount": 4,
+    "movements": [
+      [-1, 0],
+      [0, 1],
+      [2, 0],
+      [0, -2]
+    ],
+    "imageUrl": "@drawable/serowmovement"
+  },
+  {
+    "name": "sheep",
+    "movementCount": 3,
+    "movements": [
+      [-1, -1],
+      [0, 1],
+      [1, 0]
+    ],
+    "imageUrl": "@drawable/sheepmovement"
+  },
+  {
+    "name": "steer",
+    "movementCount": 4,
+    "movements": [
+      [0, -1],
+      [0, 1],
+      [1, 1],
+      [1, -1]
+    ],
+    "imageUrl": "@drawable/steermovement"
+  },
+  {
+    "name": "tanuki",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [-1, 2],
+      [1, -1]
+    ],
+    "imageUrl": "@drawable/tanukimovement"
+  },
+  {
+    "name": "turtle",
+    "movementCount": 4,
+    "movements": [
+      [1, 1],
+      [1, -1],
+      [0, -2],
+      [0, 2]
+    ],
+    "imageUrl": "@drawable/turtlemovement"
+  },
+  {
+    "name": "viper",
+    "movementCount": 3,
+    "movements": [
+      [-1, 0],
+      [0, -2],
+      [1, 1]
+    ],
+    "imageUrl": "@drawable/vipermovement"
   }
 ]

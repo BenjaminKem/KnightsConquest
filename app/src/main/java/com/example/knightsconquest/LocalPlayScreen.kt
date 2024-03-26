@@ -1,7 +1,6 @@
 package com.example.knightsconquest
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -12,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 
-class SoloPlay : AppCompatActivity() {
+class LocalPlayScreen : AppCompatActivity() {
     val game = GameController(this)
     var selectedFigure: Array<Int>? = null
     var selectedCard: Card? = null
@@ -33,7 +32,31 @@ class SoloPlay : AppCompatActivity() {
         "ox" to R.drawable.ox_card,
         "rabbit" to R.drawable.rabbit_card,
         "rooster" to R.drawable.rooster_card,
-        "tiger" to R.drawable.tiger_card
+        "tiger" to R.drawable.tiger_card,
+        "bear" to R.drawable.bear_card,
+        "cat" to R.drawable.cat_card,
+        "centipede" to R.drawable.centipede_card,
+        "dog" to R.drawable.dog_card,
+        "fox" to R.drawable.fox_card,
+        "giraffe" to R.drawable.giraffe_card,
+        "goat" to R.drawable.goat_card,
+        "hornet" to R.drawable.hornet_card,
+        "iguna" to R.drawable.iguna_card,
+        "kirin" to R.drawable.kirin_card,
+        "lobster" to R.drawable.lobster_card,
+        "mouse" to R.drawable.mouse_card,
+        "otter" to R.drawable.otter_card,
+        "panda" to R.drawable.panda_card,
+        "phoenix" to R.drawable.phoenix_card,
+        "rat" to R.drawable.rat_card,
+        "sable" to R.drawable.sable_card,
+        "seasnake" to R.drawable.seasnake_card,
+        "serow" to R.drawable.serow_card,
+        "sheep" to R.drawable.sheep_card,
+        "steer" to R.drawable.steer_card,
+        "tanuki" to R.drawable.tanuki_card,
+        "turtle" to R.drawable.turtle_card,
+        "viper" to R.drawable.viper_card,
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.Switch
 import androidx.activity.enableEdgeToEdge
@@ -38,26 +40,35 @@ class MainScreen : AppCompatActivity() {
             insets
         }
 
-        val playbutton: Button = findViewById(R.id.playbutton)
-        playbutton.setOnClickListener {
-            val playscreen = Intent(this, DuoPlay::class.java)
+        val joinButton: Button = findViewById(R.id.joinButton)
+        joinButton.setOnClickListener {
+            val joinScreen = Intent(this, JoinScreen::class.java)
             mediaPlayer?.release()
             mediaPlayer = null
-            startActivity(playscreen)
+            startActivity(joinScreen)
+        }
+        val hostButton: Button = findViewById(R.id.hostButton)
+        hostButton.setOnClickListener {
+            val hostScreen = Intent(this, HostScreen::class.java)
+            mediaPlayer?.release()
+            mediaPlayer = null
+            startActivity(hostScreen)
         }
         val howToPlayButton: Button = findViewById(R.id.howToPlayButton)
         howToPlayButton.setOnClickListener {
             val howToPlayScreen = Intent(this, HowToPlay::class.java)
             mediaPlayer?.release()
             mediaPlayer = null
-            startActivity(howToPlayScreen)
+            Handler(Looper.getMainLooper()).postDelayed({
+                startActivity(howToPlayScreen)
+            }, 1000)
         }
-        val soloPlayButton: Button = findViewById(R.id.soloPlayButton)
-        soloPlayButton.setOnClickListener {
-            val soloPlayScreen = Intent(this, SoloPlay::class.java)
+        val PlayLocalButton: Button = findViewById(R.id.PlayLocalButton)
+        PlayLocalButton.setOnClickListener {
+            val localPlayScreenScreen = Intent(this, LocalPlayScreen::class.java)
             mediaPlayer?.release()
             mediaPlayer = null
-            startActivity(soloPlayScreen)
+            startActivity(localPlayScreenScreen)
         }
     }
     private fun startBackgroundMusic() {

@@ -7,15 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".HowToPlay">
 
-
-    <ImageView
-        android:id="@+id/imageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/howtoplay" />
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Hier ist dein ImageView innerhalb der ScrollView -->
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/howtoplaytest" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
