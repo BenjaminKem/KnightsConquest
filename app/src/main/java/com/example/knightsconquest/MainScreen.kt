@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.Switch
 import androidx.activity.enableEdgeToEdge
@@ -57,7 +59,9 @@ class MainScreen : AppCompatActivity() {
             val howToPlayScreen = Intent(this, HowToPlay::class.java)
             mediaPlayer?.release()
             mediaPlayer = null
-            startActivity(howToPlayScreen)
+            Handler(Looper.getMainLooper()).postDelayed({
+                startActivity(howToPlayScreen)
+            }, 1000)
         }
         val PlayLocalButton: Button = findViewById(R.id.PlayLocalButton)
         PlayLocalButton.setOnClickListener {
