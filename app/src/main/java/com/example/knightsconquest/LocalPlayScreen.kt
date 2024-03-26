@@ -1,7 +1,6 @@
 package com.example.knightsconquest
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -12,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 
-class SoloPlay : AppCompatActivity() {
+class LocalPlayScreen : AppCompatActivity() {
     val game = GameController(this)
     var selectedFigure: Array<Int>? = null
     var selectedCard: Card? = null

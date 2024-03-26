@@ -13,13 +13,16 @@
         android:theme="@style/Theme.KnightsConquest"
         tools:targetApi="31" >
         <activity
-            android:name=".SoloPlay"
+            android:name=".HostScreen"
+            android:exported="false" />
+        <activity
+            android:name=".LocalPlayScreen"
             android:exported="false" />
         <activity
             android:name=".HowToPlay"
             android:exported="false" />
         <activity
-            android:name=".DuoPlay"
+            android:name=".JoinScreen"
             android:exported="false" />
         <activity
             android:name=".MainScreen"
