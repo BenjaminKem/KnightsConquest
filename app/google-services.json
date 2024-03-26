@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1067772744251",
+    "project_id": "obsidio-bed65",
+    "storage_bucket": "obsidio-bed65.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067772744251:android:79a77a723065a2d38ac21e",
+        "android_client_info": {
+          "package_name": "com.example.knightsconquest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDL37vHkVmC3IVBRSRA754t3Up9lzQTWeE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
