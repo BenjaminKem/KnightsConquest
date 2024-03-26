@@ -9,7 +9,6 @@ class GameController(private val context: Context) {
     private val redCards = mutableListOf<Card>()
     private val blueCards = mutableListOf<Card>()
     private val stack = mutableListOf<Card>()
-
     fun startGame() {
         // Initialisiere das Spielbrett und generiere die benötigten Karten
         gameBoard.init()
