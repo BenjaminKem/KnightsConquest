@@ -2,13 +2,17 @@ package com.example.knightsconquest
 
 import CardCreator
 import android.content.Context
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonInclude
 
-class GameController(private val context: Context) {
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+class GameController() {
     val gameBoard = GameBoard()
-    private val cardCreator = CardCreator(context)
-    private val redCards = mutableListOf<Card>()
-    private val blueCards = mutableListOf<Card>()
-    private val stack = mutableListOf<Card>()
+    val cardCreator = CardCreator()
+    val redCards = mutableListOf<Card>()
+    val blueCards = mutableListOf<Card>()
+    val stack = mutableListOf<Card>()
     fun startGame() {
         // Initialisiere das Spielbrett und generiere die benötigten Karten
         gameBoard.init()

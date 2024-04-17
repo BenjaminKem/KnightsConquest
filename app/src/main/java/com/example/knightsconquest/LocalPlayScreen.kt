@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 
 class LocalPlayScreen : AppCompatActivity() {
-    val game = GameController(this)
+    val game = GameController()
     var selectedFigure: Array<Int>? = null
     var selectedCard: Card? = null
     var selectedField: Array<Int>? = null

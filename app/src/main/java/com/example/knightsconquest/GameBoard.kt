@@ -1,11 +1,23 @@
 package com.example.knightsconquest
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonInclude
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 class GameBoard {
-    private val size = 5
-    private val board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
+    var size = 5
+    var board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
     var turnIndicator : TileColor = TileColor.RED
-    private var redWon = false
-    private var blueWon = false
+    var redWon = false
+    var blueWon = false
+    data class GameBoard(
+        var size: Int,
+        var board: Array<Array<Tile>>,
+        var turnIndicator: TileColor,
+        var redWon: Boolean,
+        var blueWon: Boolean
+    )
     fun init (){
         for(count in 0..4){
             if(count == 2){

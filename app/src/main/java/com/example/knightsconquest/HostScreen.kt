@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import java.io.File
-import java.io.IOException
+import com.google.firebase.database.FirebaseDatabase
+
 
 class HostScreen : AppCompatActivity() {
-    var gameId : String = ""
-    var game = GameController(this)
+    val db = FirebaseDatabase.getInstance()
+    var gameID : String = ""
+    var game = GameController()
+    var objectMapper = ObjectMapper()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,14 +23,33 @@ class HostScreen : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        game.startGame()
-        val gameIdGenerator = GameIdGenerator()
-
         // Callback-Funktion zum Verarbeiten der generierten Game-ID
         val callback: (String) -> Unit = { gameId ->
-            this.gameId=gameId
+            this.gameID=gameId
+            val gameAsJson = objectMapper.writeValueAsString(game)
+            db.getReference(gameID).setValue(gameAsJson)
         }
         // Aufruf der Methode generateUniqueGameId mit dem Callback
-        gameIdGenerator.generateUniqueGameId(callback)
+        val gameIDGenerator = GameIdGenerator()
+        gameIDGenerator.generateUniqueGameId(callback)
+        game.startGame()
+
+        //Test für einen Eintrag aus der Datenbank
+        /*
+        val reference = db.getReference("95542")
+        reference.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val gameAsJson : String = task.result?.value.toString()
+                println(gameAsJson)
+                val testgame: GameController = objectMapper.readValue(gameAsJson, GameController::class.java)
+                testgame.gameBoard.printBoard()
+                println(testgame.redCards[0])
+                // Hier kannst du das Ergebnis weiterverarbeiten
+            } else {
+                // Fehlerbehandlung, falls die Aufgabe nicht erfolgreich war
+                val exception = task.exception
+                // Hier kannst du den Fehler behandeln oder protokollieren
+        }
+        */
     }
 }
