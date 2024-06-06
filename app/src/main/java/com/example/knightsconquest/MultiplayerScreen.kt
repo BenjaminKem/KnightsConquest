@@ -569,10 +569,22 @@ class MultiplayerScreen : AppCompatActivity() {
         bottomLeftPanel.isEnabled = true
         bottomMidPanel.isEnabled = true
     }
+    private fun deleteGameEntry(gameId: String) {
+        val database = FirebaseDatabase.getInstance()
+        val databaseReference = database.getReference("gameIds").child(gameId)
+        databaseReference.removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                println("Spiel-Daten erfolgreich aus der Datenbank gelöscht.")
+            } else {
+                println("Fehler beim Löschen der Spiel-Daten aus der Datenbank: ${task.exception?.message}")
+            }
+        }
+    }
 
-    override fun onStop() {
-        super.onStop()
-            gameManager.playerTurn = Turn.LEFT
+    override fun onDestroy() {
+        super.onDestroy()
+        deleteGameEntry(gameManager.gameID)
+        gameManager.playerTurn = Turn.LEFT
     }
 }
 

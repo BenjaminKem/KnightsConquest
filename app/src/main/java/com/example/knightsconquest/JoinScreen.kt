@@ -73,7 +73,11 @@ class JoinScreen : AppCompatActivity() {
                             multiplayerPlayScreenScreen.putExtra("gameId",gameId)
                             multiplayerPlayScreenScreen.putExtra("player","red")
                             startActivity(multiplayerPlayScreenScreen)
-                            }
+                            }else{Toast.makeText(
+                                this,
+                                "Spiel ist voll: $gameId",
+                                Toast.LENGTH_SHORT
+                            ).show()}
                         }, onFailure = { exception ->
                             // Fehler beim Abrufen der Spieldaten
                             println("Fehler: ${exception.message}")
