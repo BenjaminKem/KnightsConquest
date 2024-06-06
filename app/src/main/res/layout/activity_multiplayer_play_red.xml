@@ -44,6 +44,7 @@
         android:id="@+id/boardGrid"
         android:layout_width="367dp"
         android:layout_height="372dp"
+        android:rotation="180"
         android:columnCount="5"
         android:rowCount="5"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -307,13 +308,14 @@
         android:id="@+id/TopCardGrid"
         android:layout_width="wrap_content"
         android:layout_height="112dp"
-        android:layout_marginTop="120dp"
-        android:rotation= "180"
+        android:layout_marginBottom="70dp"
         android:columnCount="3"
         android:rowCount="1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+
+        >
 
         <Button
             android:id="@+id/TopLeftCard"
@@ -352,12 +354,13 @@
         android:id="@+id/BottomCardGrid"
         android:layout_width="wrap_content"
         android:layout_height="112dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginTop="120dp"
+        android:rotation= "180"
         android:columnCount="3"
         android:rowCount="1"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/BottomLeftCard"
@@ -395,22 +398,23 @@
         android:id="@+id/playerturnred"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginBottom="-25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/playerturn"
+        />
+    <ImageView
+        android:id="@+id/playerturnblue"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:rotation="180"
         android:layout_marginTop="-25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/playerturn" />
-    <ImageView
-        android:id="@+id/playerturnblue"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="-25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/playerturn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

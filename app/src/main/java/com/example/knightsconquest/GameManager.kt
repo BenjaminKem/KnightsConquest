@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 class GameManager {
     var playerOne:PlayerState = PlayerState.WAITING;
     var playerTwo:PlayerState = PlayerState.WAITING;
+    var playerTurn:Turn = Turn.BLUE
     var gameID:String = "";
     val game = GameController()
     var selectedFigure: Array<Int>? = null

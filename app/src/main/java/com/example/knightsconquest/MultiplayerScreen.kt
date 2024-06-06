@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener
 
 
 class MultiplayerScreen : AppCompatActivity() {
+    val objectMapper = ObjectMapper()
     val db = FirebaseDatabase.getInstance()
     var gameManager: GameManager = GameManager();
     var player:String = "";
@@ -29,6 +30,7 @@ class MultiplayerScreen : AppCompatActivity() {
         player = intent.getStringExtra("player").toString()
         if(player.equals("red")){
             setContentView(R.layout.activity_multiplayer_play_red)
+            deactivateEverything()
         }else{
             setContentView(R.layout.activity_multiplayer_play_blue)
         }
@@ -45,6 +47,7 @@ class MultiplayerScreen : AppCompatActivity() {
                 val gameManager: GameManager = objectMapper.readValue(gameValue)
                 this.gameManager = gameManager;
                 println("Spiel wurde aus Datenbank wiederhergestellt}")
+                addGameChangeListener(gameManager.gameID)
                 gameManager.game.startGame()
                 updateGameBoard(gameManager.game.gameBoard)
                 val backButton: Button = findViewById(R.id.backButtonSoloPlayScreen)
@@ -321,11 +324,11 @@ class MultiplayerScreen : AppCompatActivity() {
                             val HowToPlay = Intent(this, HowToPlay::class.java)
                             startActivity(HowToPlay)
                         }
-
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
                         gameManager.selectedField = null
                         changePlayTurn()
+                        writeGameToDatabase(gameManager.gameID,objectMapper.writeValueAsString(gameManager))
                     } else {
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
@@ -365,9 +368,11 @@ class MultiplayerScreen : AppCompatActivity() {
         if(gameManager.game.gameBoard.turnIndicator == TileColor.RED){
             playerturnblue.isVisible = false
             playerturnred.isVisible = true
+            gameManager.playerTurn = Turn.RED
         }else{
             playerturnred.isVisible = false
             playerturnblue.isVisible = true
+            gameManager.playerTurn = Turn.BLUE
         }
     }
 
@@ -487,6 +492,50 @@ class MultiplayerScreen : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
+    }
+    fun deactivateEverything() {
+        for (rowCounter in 0..4) {
+            for (columnCounter in 0..4) {
+                val panelId = resources.getIdentifier(
+                    "Panel$rowCounter" + "_$columnCounter",
+                    "id",
+                    packageName
+                )
+                val panelToChange = findViewById<Button>(panelId)
+                panelToChange.isEnabled = false;
+                panelToChange.isEnabled = false
+            }
+        }
+        val topLeftPanel = findViewById<Button>(R.id.TopLeftCard)
+        val topMidPanel = findViewById<Button>(R.id.TopMidCard)
+        val bottomLeftPanel = findViewById<Button>(R.id.BottomLeftCard)
+        val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
+        topLeftPanel.isEnabled = false
+        topMidPanel.isEnabled = false
+        bottomLeftPanel.isEnabled = false
+        bottomMidPanel.isEnabled = false
+    }
+    fun activateEverything() {
+        for (rowCounter in 0..4) {
+            for (columnCounter in 0..4) {
+                val panelId = resources.getIdentifier(
+                    "Panel$rowCounter" + "_$columnCounter",
+                    "id",
+                    packageName
+                )
+                val panelToChange = findViewById<Button>(panelId)
+                panelToChange.isEnabled = true;
+                panelToChange.isEnabled = true
+            }
+        }
+        val topLeftPanel = findViewById<Button>(R.id.TopLeftCard)
+        val topMidPanel = findViewById<Button>(R.id.TopMidCard)
+        val bottomLeftPanel = findViewById<Button>(R.id.BottomLeftCard)
+        val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
+        topLeftPanel.isEnabled = true
+        topMidPanel.isEnabled = true
+        bottomLeftPanel.isEnabled = true
+        bottomMidPanel.isEnabled = true
     }
 }
 
