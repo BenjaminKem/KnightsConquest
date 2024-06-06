@@ -329,6 +329,8 @@ class MultiplayerScreen : AppCompatActivity() {
                         gameManager.selectedField = null
                         changePlayTurn()
                         writeGameToDatabase(gameManager.gameID,objectMapper.writeValueAsString(gameManager))
+                        deactivateEverything()
+                        addGameChangeListener(gameManager.gameID)
                     } else {
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
@@ -450,8 +452,10 @@ class MultiplayerScreen : AppCompatActivity() {
                         val objectMapper = ObjectMapper()
                         println("Spiel Daten wurden aktualisiert: $updatedGame")
                         val gameManager: GameManager = objectMapper.readValue(updatedGame.toString())
-                        if(gameManager.playerTwo == PlayerState.JOINTED){
-                            handleUpdatedGame(gameId)
+                        if(gameManager.playerTurn == Turn.BLUE && player.equals("blue")){
+                            handleGameUpdated(gameManager)
+                        }else if(gameManager.playerTurn == Turn.RED && player.equals("red")){
+                            handleGameUpdated(gameManager)
                         }
                     }
                 }
@@ -460,11 +464,14 @@ class MultiplayerScreen : AppCompatActivity() {
                 }
             })
         }
-        private fun handleUpdatedGame(gameId: String) {
-            val multiplayerPlayScreenScreen = Intent(this, MultiplayerScreen::class.java)
-            multiplayerPlayScreenScreen.putExtra("gameId",gameId)
-            multiplayerPlayScreenScreen.putExtra("player","first")
-            startActivity(multiplayerPlayScreenScreen)
+        fun handleGameUpdated(gameManager: GameManager){
+            this.gameManager = gameManager
+            setGamemanager(this.gameManager)
+            updateGameBoard(this.gameManager.game.gameBoard)
+            activateEverything()
+        }
+        fun setGamemanager(gameManager: GameManager){
+            this.gameManager = gameManager
         }
     fun getGameValue(gameId: String, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
         val database = FirebaseDatabase.getInstance()
