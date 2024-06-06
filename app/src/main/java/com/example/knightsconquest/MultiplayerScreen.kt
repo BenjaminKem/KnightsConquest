@@ -49,7 +49,6 @@ class MultiplayerScreen : AppCompatActivity() {
                 println("Spiel wurde aus Datenbank wiederhergestellt}")
                 addGameChangeListener(gameManager.gameID)
                 gameManager.game.startGame()
-                updateGameBoard(gameManager.game.gameBoard)
                 val backButton: Button = findViewById(R.id.backButtonSoloPlayScreen)
                 backButton.setOnClickListener {
                     val mainScreen = Intent(this, MainScreen::class.java)
@@ -321,7 +320,6 @@ class MultiplayerScreen : AppCompatActivity() {
                 if (gameManager.selectedFigure != null && gameManager.selectedCard != null) {
                     if (gameManager.game.makeMove(gameManager.selectedCard!!, gameManager.selectedFigure!!, gameManager.selectedField!!)) {
                         gameManager.selectedField = arrayOf(row, col)
-                        updateGameBoard(gameManager.game.gameBoard)
                         if (gameManager.game.gameBoard.didSomeoneWin()) {
                             val HowToPlay = Intent(this, HowToPlay::class.java)
                             startActivity(HowToPlay)
@@ -332,7 +330,6 @@ class MultiplayerScreen : AppCompatActivity() {
                         changePlayTurn()
                         writeGameToDatabase(gameManager.gameID,objectMapper.writeValueAsString(gameManager))
                         deactivateEverything()
-                        addGameChangeListener(gameManager.gameID)
                     } else {
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
@@ -454,6 +451,7 @@ class MultiplayerScreen : AppCompatActivity() {
                         val objectMapper = ObjectMapper()
                         println("Spiel Daten wurden aktualisiert: $updatedGame")
                         val gameManager: GameManager = objectMapper.readValue(updatedGame.toString())
+                        updateGameBoard(gameManager.game.gameBoard)
                         if(gameManager.playerTurn == Turn.BLUE && player.equals("blue")){
                             handleGameUpdated(gameManager)
                         }else if(gameManager.playerTurn == Turn.RED && player.equals("red")){
