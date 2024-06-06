@@ -6,5 +6,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HostScreen">
+<ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/mainscreen" />
+
+<Button
+        android:id="@+id/backButtonHostScreen"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:autoText="false"
+        android:background="@drawable/backbutton"
+        android:checked="true"
+        android:enabled="true"
+        android:fadeScrollbars="true"
+        android:filterTouchesWhenObscured="false"
+        android:fitsSystemWindows="false"
+        android:forceHasOverlappingRendering="true"
+        android:foreground="@drawable/backbutton"
+        android:showText="false"
+        android:splitTrack="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

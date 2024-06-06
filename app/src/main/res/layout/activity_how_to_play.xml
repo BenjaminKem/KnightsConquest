@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/howtoplaytest" />
+                app:srcCompat="@drawable/mainscreen" />
 
         </LinearLayout>
 

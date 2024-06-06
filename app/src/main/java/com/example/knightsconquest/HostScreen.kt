@@ -92,7 +92,7 @@ class HostScreen : AppCompatActivity() {
     private fun handleUpdatedGame(gameId: String) {
         val multiplayerPlayScreenScreen = Intent(this, MultiplayerScreen::class.java)
         multiplayerPlayScreenScreen.putExtra("gameId",gameId)
-        multiplayerPlayScreenScreen.putExtra("player","first")
+        multiplayerPlayScreenScreen.putExtra("player","blue")
         startActivity(multiplayerPlayScreenScreen)
     }
 }
