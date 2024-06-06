@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import android.content.Intent
+import android.widget.Button
 import com.fasterxml.jackson.module.kotlin.readValue
 
 
@@ -29,6 +30,11 @@ class HostScreen : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        val backButton: Button = findViewById(R.id.backButtonHostScreen)
+        backButton.setOnClickListener {
+            val mainScreen = Intent(this, MainScreen::class.java)
+            startActivity(mainScreen)
         }
         auth.signInAnonymously().addOnCompleteListener { task ->
             if (task.isSuccessful) {
