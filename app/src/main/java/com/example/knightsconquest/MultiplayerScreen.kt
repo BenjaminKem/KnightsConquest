@@ -321,8 +321,11 @@ class MultiplayerScreen : AppCompatActivity() {
                     if (gameManager.game.makeMove(gameManager.selectedCard!!, gameManager.selectedFigure!!, gameManager.selectedField!!)) {
                         gameManager.selectedField = arrayOf(row, col)
                         if (gameManager.game.gameBoard.didSomeoneWin()) {
-                            val HowToPlay = Intent(this, HowToPlay::class.java)
-                            startActivity(HowToPlay)
+                            if(gameManager.playerTurn == Turn.BLUE){
+                                gameManager.playerTurn == Turn.BLUEWON
+                            }else{
+                                gameManager.playerTurn == Turn.REDWON
+                            }
                         }
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
@@ -451,18 +454,40 @@ class MultiplayerScreen : AppCompatActivity() {
                         val objectMapper = ObjectMapper()
                         println("Spiel Daten wurden aktualisiert: $updatedGame")
                         val gameManager: GameManager = objectMapper.readValue(updatedGame.toString())
-                        updateGameBoard(gameManager.game.gameBoard)
-                        if(gameManager.playerTurn == Turn.BLUE && player.equals("blue")){
-                            handleGameUpdated(gameManager)
-                        }else if(gameManager.playerTurn == Turn.RED && player.equals("red")){
-                            handleGameUpdated(gameManager)
+                        if(!(gameManager.playerTurn == Turn.LEFT)) {
+                            gameManager.selectedFigure = null
+                            gameManager.selectedCard = null
+                            gameManager.selectedField = null
+                            updateGameBoard(gameManager.game.gameBoard)
+                            if (gameManager.playerTurn == Turn.BLUE && player.equals("blue")) {
+                                handleGameUpdated(gameManager)
+                            } else if (gameManager.playerTurn == Turn.RED && player.equals("red")) {
+                                handleGameUpdated(gameManager)
+                            }else if(gameManager.playerTurn == Turn.BLUEWON && player.equals("blue")){
+                                endGame()
+                            }else if(gameManager.playerTurn == Turn.REDWON && player.equals("red")){
+                                endGame()
+                            }else if(gameManager.playerTurn == Turn.BLUEWON && player.equals("red")){
+                                loseScreen()
+                            }}else if(gameManager.playerTurn == Turn.REDWON && player.equals("blue")){
+                                loseScreen()
                         }
-                    }
+                        }else{
+                            endGame()
+                        }
                 }
                 override fun onCancelled(error: DatabaseError) {
                     println("Fehler beim Abhören von Spiel-Änderungen: ${error.message}")
                 }
             })
+        }
+        fun endGame(){
+            val MainScreen = Intent(this, MainScreen::class.java)
+            startActivity(MainScreen)
+        }
+        fun loseScreen(){
+            val loseScreen = Intent(this, HowToPlay::class.java)
+            startActivity(loseScreen)
         }
         fun handleGameUpdated(gameManager: GameManager){
             this.gameManager = gameManager
@@ -543,6 +568,11 @@ class MultiplayerScreen : AppCompatActivity() {
         topMidPanel.isEnabled = true
         bottomLeftPanel.isEnabled = true
         bottomMidPanel.isEnabled = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+            gameManager.playerTurn = Turn.LEFT
     }
 }
 

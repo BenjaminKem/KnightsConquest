@@ -61,12 +61,14 @@ class JoinScreen : AppCompatActivity() {
                             // Erfolgreiches Abrufen der Spieldaten
                             val objectMapper = ObjectMapper()
                             val gameManager: GameManager = objectMapper.readValue(gameValue)
+                            if(!(gameManager.playerTwo == PlayerState.JOINTED)){
                             gameManager.playerTwo = PlayerState.JOINTED
                             writeGameToDatabase(gameId,objectMapper.writeValueAsString(gameManager))
                             val multiplayerPlayScreenScreen = Intent(this, MultiplayerScreen::class.java)
                             multiplayerPlayScreenScreen.putExtra("gameId",gameId)
                             multiplayerPlayScreenScreen.putExtra("player","red")
                             startActivity(multiplayerPlayScreenScreen)
+                            }
                         }, onFailure = { exception ->
                             // Fehler beim Abrufen der Spieldaten
                             println("Fehler: ${exception.message}")
