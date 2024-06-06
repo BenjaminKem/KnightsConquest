@@ -369,7 +369,7 @@ class MultiplayerScreen : AppCompatActivity() {
     private fun changePlayTurn() {
         val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
         val playerturnred = findViewById<ImageView>(R.id.playerturnred)
-        if(gameManager.game.gameBoard.turnIndicator == TileColor.BLUE){
+        if(gameManager.playerTurn == Turn.BLUE){
             playerturnblue.isVisible = false
             playerturnred.isVisible = true
             gameManager.playerTurn = Turn.RED
