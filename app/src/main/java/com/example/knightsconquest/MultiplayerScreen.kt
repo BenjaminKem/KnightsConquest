@@ -55,139 +55,141 @@ class MultiplayerScreen : AppCompatActivity() {
                     val mainScreen = Intent(this, MainScreen::class.java)
                     startActivity(mainScreen)
                 }
-                val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
-                playerturnblue.isVisible = false
-                // Panels initialisieren und Click Listener setzen
-                val panel0_0 = findViewById<Button>(R.id.Panel0_0)
-                setPanelClickListener(panel0_0, 0, 0)
-
-                val panel0_1 = findViewById<Button>(R.id.Panel0_1)
-                setPanelClickListener(panel0_1, 0, 1)
-
-                val panel0_2 = findViewById<Button>(R.id.Panel0_2)
-                setPanelClickListener(panel0_2, 0, 2)
-
-                val panel0_3 = findViewById<Button>(R.id.Panel0_3)
-                setPanelClickListener(panel0_3, 0, 3)
-
-                val panel0_4 = findViewById<Button>(R.id.Panel0_4)
-                setPanelClickListener(panel0_4, 0, 4)
-
-                val panel1_0 = findViewById<Button>(R.id.Panel1_0)
-                setPanelClickListener(panel1_0, 1, 0)
-
-                val panel1_1 = findViewById<Button>(R.id.Panel1_1)
-                setPanelClickListener(panel1_1, 1, 1)
-
-                val panel1_2 = findViewById<Button>(R.id.Panel1_2)
-                setPanelClickListener(panel1_2, 1, 2)
-
-                val panel1_3 = findViewById<Button>(R.id.Panel1_3)
-                setPanelClickListener(panel1_3, 1, 3)
-
-                val panel1_4 = findViewById<Button>(R.id.Panel1_4)
-                setPanelClickListener(panel1_4, 1, 4)
-
-                val panel2_0 = findViewById<Button>(R.id.Panel2_0)
-                setPanelClickListener(panel2_0, 2, 0)
-
-                val panel2_1 = findViewById<Button>(R.id.Panel2_1)
-                setPanelClickListener(panel2_1, 2, 1)
-
-                val panel2_2 = findViewById<Button>(R.id.Panel2_2)
-                setPanelClickListener(panel2_2, 2, 2)
-
-                val panel2_3 = findViewById<Button>(R.id.Panel2_3)
-                setPanelClickListener(panel2_3, 2, 3)
-
-                val panel2_4 = findViewById<Button>(R.id.Panel2_4)
-                setPanelClickListener(panel2_4, 2, 4)
-
-                val panel3_0 = findViewById<Button>(R.id.Panel3_0)
-                setPanelClickListener(panel3_0, 3, 0)
-
-                val panel3_1 = findViewById<Button>(R.id.Panel3_1)
-                setPanelClickListener(panel3_1, 3, 1)
-
-                val panel3_2 = findViewById<Button>(R.id.Panel3_2)
-                setPanelClickListener(panel3_2, 3, 2)
-
-                val panel3_3 = findViewById<Button>(R.id.Panel3_3)
-                setPanelClickListener(panel3_3, 3, 3)
-
-                val panel3_4 = findViewById<Button>(R.id.Panel3_4)
-                setPanelClickListener(panel3_4, 3, 4)
-
-                val panel4_0 = findViewById<Button>(R.id.Panel4_0)
-                setPanelClickListener(panel4_0, 4, 0)
-
-                val panel4_1 = findViewById<Button>(R.id.Panel4_1)
-                setPanelClickListener(panel4_1, 4, 1)
-
-                val panel4_2 = findViewById<Button>(R.id.Panel4_2)
-                setPanelClickListener(panel4_2, 4, 2)
-
-                val panel4_3 = findViewById<Button>(R.id.Panel4_3)
-                setPanelClickListener(panel4_3, 4, 3)
-
-                val panel4_4 = findViewById<Button>(R.id.Panel4_4)
-                setPanelClickListener(panel4_4, 4, 4)
-
-                val topLeftPanel = findViewById<Button>(R.id.TopLeftCard)
-                val topMidPanel = findViewById<Button>(R.id.TopMidCard)
-                topLeftPanel.setOnClickListener {
-                    if (gameManager.game.gameBoard.turnIndicator == TileColor.RED) {
-                        gameManager.selectedCard = gameManager.game.getRedCard(0)
-                        topMidPanel.isSelected = false
-                        topLeftPanel.isSelected = true
-                        if(gameManager.selectedFigure != null){
-                            deselectHighlightedFields()
-                            highlightPossibleMoves()
-                        }
-                    }
-                }
-                topMidPanel.setOnClickListener {
-                    if (gameManager.game.gameBoard.turnIndicator == TileColor.RED) {
-                        gameManager.selectedCard = gameManager.game.getRedCard(1)
-                        topMidPanel.isSelected = true
-                        topLeftPanel.isSelected = false
-                        if(gameManager.selectedFigure != null){
-                            deselectHighlightedFields()
-                            highlightPossibleMoves()
-                        }
-                    }
-                }
-                val bottomLeftPanel = findViewById<Button>(R.id.BottomLeftCard)
-                val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
-                bottomLeftPanel.setOnClickListener {
-                    if (gameManager.game.gameBoard.turnIndicator == TileColor.BLUE) {
-                        gameManager.selectedCard = gameManager.game.getBlueCard(0)
-                        bottomLeftPanel.isSelected = true
-                        bottomMidPanel.isSelected = false
-                        if(gameManager.selectedFigure != null){
-                            deselectHighlightedFields()
-                            highlightPossibleMoves()
-                        }
-                    }
-                }
-                bottomMidPanel.setOnClickListener {
-                    if (gameManager.game.gameBoard.turnIndicator == TileColor.BLUE) {
-                        gameManager.selectedCard = gameManager.game.getBlueCard(1)
-                        bottomLeftPanel.isSelected = false
-                        bottomMidPanel.isSelected = true
-                        if(gameManager.selectedFigure != null){
-                            deselectHighlightedFields()
-                            highlightPossibleMoves()
-                        }
-                    }
-                }
+                val playerturnred = findViewById<ImageView>(R.id.playerturnred)
+                playerturnred.isVisible = false
+                initializeBoard()
             }, onFailure = { exception ->
                 // Fehler beim Abrufen der Spieldaten
                 println("Fehler: ${exception.message}")
             })
         }
     }
+    private fun initializeBoard(){
+        // Panels initialisieren und Click Listener setzen
+        val panel0_0 = findViewById<Button>(R.id.Panel0_0)
+        setPanelClickListener(panel0_0, 0, 0)
 
+        val panel0_1 = findViewById<Button>(R.id.Panel0_1)
+        setPanelClickListener(panel0_1, 0, 1)
+
+        val panel0_2 = findViewById<Button>(R.id.Panel0_2)
+        setPanelClickListener(panel0_2, 0, 2)
+
+        val panel0_3 = findViewById<Button>(R.id.Panel0_3)
+        setPanelClickListener(panel0_3, 0, 3)
+
+        val panel0_4 = findViewById<Button>(R.id.Panel0_4)
+        setPanelClickListener(panel0_4, 0, 4)
+
+        val panel1_0 = findViewById<Button>(R.id.Panel1_0)
+        setPanelClickListener(panel1_0, 1, 0)
+
+        val panel1_1 = findViewById<Button>(R.id.Panel1_1)
+        setPanelClickListener(panel1_1, 1, 1)
+
+        val panel1_2 = findViewById<Button>(R.id.Panel1_2)
+        setPanelClickListener(panel1_2, 1, 2)
+
+        val panel1_3 = findViewById<Button>(R.id.Panel1_3)
+        setPanelClickListener(panel1_3, 1, 3)
+
+        val panel1_4 = findViewById<Button>(R.id.Panel1_4)
+        setPanelClickListener(panel1_4, 1, 4)
+
+        val panel2_0 = findViewById<Button>(R.id.Panel2_0)
+        setPanelClickListener(panel2_0, 2, 0)
+
+        val panel2_1 = findViewById<Button>(R.id.Panel2_1)
+        setPanelClickListener(panel2_1, 2, 1)
+
+        val panel2_2 = findViewById<Button>(R.id.Panel2_2)
+        setPanelClickListener(panel2_2, 2, 2)
+
+        val panel2_3 = findViewById<Button>(R.id.Panel2_3)
+        setPanelClickListener(panel2_3, 2, 3)
+
+        val panel2_4 = findViewById<Button>(R.id.Panel2_4)
+        setPanelClickListener(panel2_4, 2, 4)
+
+        val panel3_0 = findViewById<Button>(R.id.Panel3_0)
+        setPanelClickListener(panel3_0, 3, 0)
+
+        val panel3_1 = findViewById<Button>(R.id.Panel3_1)
+        setPanelClickListener(panel3_1, 3, 1)
+
+        val panel3_2 = findViewById<Button>(R.id.Panel3_2)
+        setPanelClickListener(panel3_2, 3, 2)
+
+        val panel3_3 = findViewById<Button>(R.id.Panel3_3)
+        setPanelClickListener(panel3_3, 3, 3)
+
+        val panel3_4 = findViewById<Button>(R.id.Panel3_4)
+        setPanelClickListener(panel3_4, 3, 4)
+
+        val panel4_0 = findViewById<Button>(R.id.Panel4_0)
+        setPanelClickListener(panel4_0, 4, 0)
+
+        val panel4_1 = findViewById<Button>(R.id.Panel4_1)
+        setPanelClickListener(panel4_1, 4, 1)
+
+        val panel4_2 = findViewById<Button>(R.id.Panel4_2)
+        setPanelClickListener(panel4_2, 4, 2)
+
+        val panel4_3 = findViewById<Button>(R.id.Panel4_3)
+        setPanelClickListener(panel4_3, 4, 3)
+
+        val panel4_4 = findViewById<Button>(R.id.Panel4_4)
+        setPanelClickListener(panel4_4, 4, 4)
+
+        val topLeftPanel = findViewById<Button>(R.id.TopLeftCard)
+        val topMidPanel = findViewById<Button>(R.id.TopMidCard)
+        topLeftPanel.setOnClickListener {
+            if (gameManager.game.gameBoard.turnIndicator == TileColor.RED) {
+                gameManager.selectedCard = gameManager.game.getRedCard(0)
+                topMidPanel.isSelected = false
+                topLeftPanel.isSelected = true
+                if(gameManager.selectedFigure != null){
+                    deselectHighlightedFields()
+                    highlightPossibleMoves()
+                }
+            }
+        }
+        topMidPanel.setOnClickListener {
+            if (gameManager.game.gameBoard.turnIndicator == TileColor.RED) {
+                gameManager.selectedCard = gameManager.game.getRedCard(1)
+                topMidPanel.isSelected = true
+                topLeftPanel.isSelected = false
+                if(gameManager.selectedFigure != null){
+                    deselectHighlightedFields()
+                    highlightPossibleMoves()
+                }
+            }
+        }
+        val bottomLeftPanel = findViewById<Button>(R.id.BottomLeftCard)
+        val bottomMidPanel = findViewById<Button>(R.id.BottomMidCard)
+        bottomLeftPanel.setOnClickListener {
+            if (gameManager.game.gameBoard.turnIndicator == TileColor.BLUE) {
+                gameManager.selectedCard = gameManager.game.getBlueCard(0)
+                bottomLeftPanel.isSelected = true
+                bottomMidPanel.isSelected = false
+                if(gameManager.selectedFigure != null){
+                    deselectHighlightedFields()
+                    highlightPossibleMoves()
+                }
+            }
+        }
+        bottomMidPanel.setOnClickListener {
+            if (gameManager.game.gameBoard.turnIndicator == TileColor.BLUE) {
+                gameManager.selectedCard = gameManager.game.getBlueCard(1)
+                bottomLeftPanel.isSelected = false
+                bottomMidPanel.isSelected = true
+                if(gameManager.selectedFigure != null){
+                    deselectHighlightedFields()
+                    highlightPossibleMoves()
+                }
+            }
+        }
+    }
     private fun updateGameBoard(gameBoard: GameBoard) {
         for (rowCounter in 0..4) {
             for (columnCounter in 0..4) {
@@ -367,7 +369,7 @@ class MultiplayerScreen : AppCompatActivity() {
     private fun changePlayTurn() {
         val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
         val playerturnred = findViewById<ImageView>(R.id.playerturnred)
-        if(gameManager.game.gameBoard.turnIndicator == TileColor.RED){
+        if(gameManager.game.gameBoard.turnIndicator == TileColor.BLUE){
             playerturnblue.isVisible = false
             playerturnred.isVisible = true
             gameManager.playerTurn = Turn.RED
