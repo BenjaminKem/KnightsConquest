@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import android.content.Intent
 import android.widget.Button
+import android.widget.TextView
 import com.fasterxml.jackson.module.kotlin.readValue
 
 
@@ -22,6 +23,7 @@ class HostScreen : AppCompatActivity() {
     var gameManager = GameManager()
     val gameIdGenerator = GameIdGenerator()
     val auth = FirebaseAuth.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -49,6 +51,8 @@ class HostScreen : AppCompatActivity() {
                     val gameManagerJson = objectMapper.writeValueAsString(gameId)
                     writeGameToDatabase(gameId,objectMapper.writeValueAsString(gameManager))
                     addGameChangeListener(gameId)
+                    val hostButtonTextView: TextView = findViewById(R.id.HostButton)
+                    hostButtonTextView.text = "Your GameID: $gameId"
                 }
             } else {
                 println("Anonymous authentication failed: ${task.exception?.message}")
