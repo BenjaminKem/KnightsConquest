@@ -58,7 +58,7 @@
         android:gravity="center"
         android:paddingEnd="30dp"
         android:paddingStart="30dp"
-        android:text="Zu Beginn des Spiels erhält jeder Spieler zwei Bewegungskarten, und eine weitere Karte wird offen in die Mitte gelegt. Die Karten zeigen verschiedene Bewegungsmuster, die für die Figuren verwendet werden können. Die Spieler nehmen abwechselnd ihre Züge, indem sie eine ihrer Karten auswählen, die darauf angegebene Bewegung ausführen und die verwendete Karte dann gegen die Karte ausgegraute Karte austauschen.
+        android:text="Zu Beginn des Spiels erhält jeder Spieler zwei Bewegungskarten, und eine weitere Karte ist ausgegraut auf der Seite zu sehen  . Die Karten zeigen verschiedene Bewegungsmuster, die für die Figuren verwendet werden können. Die Spieler nehmen abwechselnd ihre Züge, indem sie eine ihrer Karten auswählen, die darauf angegebene Bewegung ausführen und die verwendete Karte dann gegen die Karte ausgegraute Karte austauschen.
 
 Eine Figur wird bewegt, indem sie die angezeigte Anzahl von Feldern in die Richtung zieht, die auf der Karte angegeben ist. Eine Figur kann auf ein freies Feld oder ein Feld ziehen, das von einer gegnerischen Figur besetzt ist, um diese zu schlagen. Der König und die Ritter können alle Bewegungen ausführen, die auf den Karten dargestellt sind.
 
@@ -66,6 +66,7 @@ Das Spiel endet sofort, wenn ein Spieler den gegnerischen König schlägt oder w
 
 Viel Spaß beim Spiel und wähle deine Züge weise!"
         android:textSize="18sp"
+        android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
