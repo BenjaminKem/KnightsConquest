@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 class GameBoard {
     var size = 5
     var board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
-    var turnIndicator : TileColor = TileColor.RED
+    var turnIndicator : TileColor = TileColor.BLUE
     var redWon = false
     var blueWon = false
     data class GameBoard(
