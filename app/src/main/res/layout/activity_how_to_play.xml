@@ -1,31 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HowToPlay">
+    tools:context=".JoinScreen">
 
-    <ScrollView
+    <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/mainscreen" />
+    <Button
+        android:id="@+id/backButtonJoinScreen"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:autoText="false"
+        android:background="@drawable/backbutton"
+        android:checked="true"
+        android:enabled="true"
+        android:fadeScrollbars="true"
+        android:filterTouchesWhenObscured="false"
+        android:fitsSystemWindows="false"
+        android:forceHasOverlappingRendering="true"
+        android:foreground="@drawable/backbutton"
+        android:showText="false"
+        android:splitTrack="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <!-- Hier ist dein ImageView innerhalb der ScrollView -->
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/mainscreen" />
 
-        </LinearLayout>
+    <TextView
+        android:id="@+id/HostButton"
+        android:layout_width="match_parent"
+        android:layout_height="730dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="false"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/panel"
+        android:enabled="true"
+        android:fadeScrollbars="true"
+        android:filterTouchesWhenObscured="false"
+        android:fitsSystemWindows="false"
+        android:forceHasOverlappingRendering="true"
+        android:gravity="center"
+        android:paddingEnd="30dp"
+        android:paddingStart="30dp"
+        android:text="Zu Beginn des Spiels erhält jeder Spieler zwei Bewegungskarten, und eine weitere Karte wird offen in die Mitte gelegt. Die Karten zeigen verschiedene Bewegungsmuster, die für die Figuren verwendet werden können. Die Spieler nehmen abwechselnd ihre Züge, indem sie eine ihrer Karten auswählen, die darauf angegebene Bewegung ausführen und die verwendete Karte dann gegen die Karte ausgegraute Karte austauschen.
 
-    </ScrollView>
+Eine Figur wird bewegt, indem sie die angezeigte Anzahl von Feldern in die Richtung zieht, die auf der Karte angegeben ist. Eine Figur kann auf ein freies Feld oder ein Feld ziehen, das von einer gegnerischen Figur besetzt ist, um diese zu schlagen. Der König und die Ritter können alle Bewegungen ausführen, die auf den Karten dargestellt sind.
 
-</RelativeLayout>
+Das Spiel endet sofort, wenn ein Spieler den gegnerischen König schlägt oder wenn der eigene König das gegnerische Startfeld erreicht. In beiden Fällen gewinnt dieser Spieler das Spiel.
+
+Viel Spaß beim Spiel und wähle deine Züge weise!"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.003"
+        tools:ignore="MissingConstraints" />
+</androidx.constraintlayout.widget.ConstraintLayout>
