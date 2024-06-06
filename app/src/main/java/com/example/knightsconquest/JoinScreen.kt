@@ -37,6 +37,11 @@ class JoinScreen : AppCompatActivity() {
         val gameIdInput = findViewById<EditText>(R.id.idInput)
         val joinButton = findViewById<Button>(R.id.joinButton)
 
+        val backButton: Button = findViewById(R.id.backButtonJoinScreen)
+        backButton.setOnClickListener {
+            val mainScreen = Intent(this, MainScreen::class.java)
+            startActivity(mainScreen)
+        }
 
         joinButton.setOnClickListener {
             val gameId = gameIdInput.text.toString()

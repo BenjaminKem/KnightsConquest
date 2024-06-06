@@ -16,7 +16,7 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/mainscreen" />
     <Button
-        android:id="@+id/backButtonJoinScreen"
+        android:id="@+id/backButtonHowToPlayScreen"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentStart="true"
