@@ -5,10 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JoinScreen">
+    tools:context=".LocalPlayScreen">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/gamescreenbackground" />
     <Button
-        android:id="@+id/backButtonDuoPlayScreen"
+        android:id="@+id/backButtonSoloPlayScreen"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentStart="true"
@@ -30,6 +38,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <GridLayout
         android:id="@+id/boardGrid"
         android:layout_width="367dp"
@@ -50,8 +60,7 @@
             android:layout_columnWeight="1"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:scaleType="centerCrop"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel0_1"
@@ -59,10 +68,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel0_2"
@@ -70,10 +78,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel0_3"
@@ -81,10 +88,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel0_4"
@@ -92,10 +98,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel1_0"
@@ -103,10 +108,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel1_1"
@@ -114,10 +118,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel1_2"
@@ -125,10 +128,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel1_3"
@@ -136,10 +138,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel1_4"
@@ -147,10 +148,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel2_0"
@@ -158,10 +158,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel2_1"
@@ -169,10 +168,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel2_2"
@@ -180,10 +178,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel2_3"
@@ -191,10 +188,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel2_4"
@@ -202,10 +198,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel3_0"
@@ -213,10 +208,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel3_1"
@@ -224,10 +218,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel3_2"
@@ -235,10 +228,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel3_3"
@@ -246,10 +238,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel3_4"
@@ -257,10 +248,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel4_0"
@@ -268,10 +258,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel4_1"
@@ -279,10 +268,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel4_2"
@@ -290,10 +278,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel4_3"
@@ -301,10 +288,9 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
 
         <Button
             android:id="@+id/Panel4_4"
@@ -312,33 +298,33 @@
             android:layout_height="0dp"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            android:scaleType="centerCrop"
             android:background="@drawable/panel"
             android:foreground="@drawable/panel"
-            android:src="@drawable/panel" />
+            android:scaleType="centerCrop" />
     </GridLayout>
 
     <GridLayout
         android:id="@+id/TopCardGrid"
         android:layout_width="wrap_content"
-        android:layout_height="110dp"
+        android:layout_height="112dp"
         android:layout_marginTop="120dp"
+        android:rotation= "180"
         android:columnCount="3"
         android:rowCount="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
+        <Button
             android:id="@+id/TopLeftCard"
             android:layout_width="121dp"
             android:layout_height="110dp"
             android:layout_columnWeight="1"
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/tabpanellight" />
+            android:foreground="@drawable/tabpanellight" />
 
-        <ImageView
+        <Button
             android:id="@+id/TopMidCard"
             android:layout_width="121dp"
             android:layout_height="110dp"
@@ -348,23 +334,24 @@
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:src="@drawable/tabpanellight" />
+            android:foreground="@drawable/tabpanellight" />
 
-        <ImageView
+        <Button
             android:id="@+id/TopRightCard"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_columnWeight="1"
             android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:src="@drawable/tabpanellight" />
+            android:alpha="0.7"
+            android:foreground="@drawable/tabpanellight" />
     </GridLayout>
 
     <GridLayout
         android:id="@+id/BottomCardGrid"
         android:layout_width="wrap_content"
-        android:layout_height="110dp"
+        android:layout_height="112dp"
         android:layout_marginBottom="70dp"
         android:columnCount="3"
         android:rowCount="1"
@@ -372,7 +359,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
+        <Button
             android:id="@+id/BottomLeftCard"
             android:layout_width="121dp"
             android:layout_height="110dp"
@@ -380,9 +367,9 @@
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:src="@drawable/elefantmovement" />
+            android:foreground="@drawable/tabpanellight" />
 
-        <ImageView
+        <Button
             android:id="@+id/BottomMidCard"
             android:layout_width="121dp"
             android:layout_height="110dp"
@@ -390,17 +377,40 @@
             android:layout_margin="2dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:src="@drawable/tabpanellight" />
+            android:foreground="@drawable/tabpanellight" />
 
-        <ImageView
+        <Button
             android:id="@+id/BottomRightCard"
-            android:layout_width="70dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_columnWeight="1"
             android:layout_margin="12dp"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:src="@drawable/elefantmovement" />
+            android:alpha="0.7"
+            android:foreground="@drawable/tabpanellight" />
     </GridLayout>
+
+    <ImageView
+        android:id="@+id/playerturnred"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:rotation="180"
+        android:layout_marginTop="-25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/playerturn" />
+    <ImageView
+        android:id="@+id/playerturnblue"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="-25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/playerturn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
