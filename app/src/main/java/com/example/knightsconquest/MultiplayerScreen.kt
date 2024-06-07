@@ -3,6 +3,7 @@ package com.example.knightsconquest
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
@@ -26,6 +27,7 @@ class MultiplayerScreen : AppCompatActivity() {
     var player:String = "";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("MultiplayerScreen", "onCreate called")
         enableEdgeToEdge()
         player = intent.getStringExtra("player").toString()
         if(player.equals("red")){
@@ -330,6 +332,7 @@ class MultiplayerScreen : AppCompatActivity() {
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
                         gameManager.selectedField = null
+                        println("Bewegung wird ausgeführt")
                         changePlayTurn()
                         writeGameToDatabase(gameManager.gameID,objectMapper.writeValueAsString(gameManager))
                         deactivateEverything()
@@ -459,6 +462,13 @@ class MultiplayerScreen : AppCompatActivity() {
                             gameManager.selectedCard = null
                             gameManager.selectedField = null
                             updateGameBoard(gameManager.game.gameBoard)
+                            if (gameManager.game.gameBoard.didSomeoneWin()) {
+                                if(gameManager.playerTurn == Turn.BLUE){
+                                    gameManager.playerTurn == Turn.BLUEWON
+                                }else{
+                                    gameManager.playerTurn == Turn.REDWON
+                                }
+                            }
                             if (gameManager.playerTurn == Turn.BLUE && player.equals("blue")) {
                                 handleGameUpdated(gameManager)
                             } else if (gameManager.playerTurn == Turn.RED && player.equals("red")) {
@@ -490,6 +500,7 @@ class MultiplayerScreen : AppCompatActivity() {
             startActivity(loseScreen)
         }
         fun handleGameUpdated(gameManager: GameManager){
+            println("Spiel wird geupdated")
             this.gameManager = gameManager
             setGamemanager(this.gameManager)
             updateGameBoard(this.gameManager.game.gameBoard)
@@ -583,8 +594,28 @@ class MultiplayerScreen : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d("MultiplayerScreen", "onDestroy called")
         deleteGameEntry(gameManager.gameID)
         gameManager.playerTurn = Turn.LEFT
+    }
+    override fun onStart() {
+        super.onStart()
+        Log.d("MultiplayerScreen", "onStart called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MultiplayerScreen", "onResume called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MultiplayerScreen", "onPause called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MultiplayerScreen", "onStop called")
     }
 }
 
