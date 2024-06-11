@@ -66,8 +66,8 @@ class JoinScreen : AppCompatActivity() {
                             // Erfolgreiches Abrufen der Spieldaten
                             val objectMapper = ObjectMapper()
                             val gameManager: GameManager = objectMapper.readValue(gameValue)
-                            if(!(gameManager.playerTwo == PlayerState.JOINTED)){
-                            gameManager.playerTwo = PlayerState.JOINTED
+                            if(!(gameManager.playerTwo == PlayerState.JOINED)){
+                            gameManager.playerTwo = PlayerState.JOINED
                             writeGameToDatabase(gameId,objectMapper.writeValueAsString(gameManager))
                             val multiplayerPlayScreenScreen = Intent(this, MultiplayerScreen::class.java)
                             multiplayerPlayScreenScreen.putExtra("gameId",gameId)

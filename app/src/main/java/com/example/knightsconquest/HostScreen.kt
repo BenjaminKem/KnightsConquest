@@ -46,7 +46,7 @@ class HostScreen : AppCompatActivity() {
                     gameManager.gameID = gameId;
                     writeGameIdToDatabase(gameId)
                     gameManager.game.startGame()
-                    gameManager.playerOne = PlayerState.JOINTED
+                    gameManager.playerOne = PlayerState.JOINED
                     val objectMapper = ObjectMapper()
                     val gameManagerJson = objectMapper.writeValueAsString(gameId)
                     writeGameToDatabase(gameId,objectMapper.writeValueAsString(gameManager))
@@ -89,7 +89,7 @@ class HostScreen : AppCompatActivity() {
                     val objectMapper = ObjectMapper()
                     println("Spiel Daten wurden aktualisiert: $updatedGame")
                     val gameManager: GameManager = objectMapper.readValue(updatedGame.toString())
-                    if(gameManager.playerTwo == PlayerState.JOINTED){
+                    if(gameManager.playerTwo == PlayerState.JOINED){
                         handleUpdatedGame(gameId)
                     }
                 }
