@@ -18,6 +18,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.util.concurrent.locks.ReentrantLock
 
 
 class MultiplayerScreen : AppCompatActivity() {
@@ -25,11 +26,13 @@ class MultiplayerScreen : AppCompatActivity() {
     val db = FirebaseDatabase.getInstance()
     var gameManager: GameManager = GameManager();
     var player:String = "";
+    private val lock = ReentrantLock();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("MultiplayerScreen", "onCreate called")
         enableEdgeToEdge()
         player = intent.getStringExtra("player").toString()
+        lock.lock()
         if(player.equals("red")){
             setContentView(R.layout.activity_multiplayer_play_red)
             deactivateEverything()
@@ -64,6 +67,7 @@ class MultiplayerScreen : AppCompatActivity() {
                 println("Fehler: ${exception.message}")
             })
         }
+        lock.unlock()
     }
     private fun initializeBoard(){
         // Panels initialisieren und Click Listener setzen
@@ -322,12 +326,10 @@ class MultiplayerScreen : AppCompatActivity() {
                 if (gameManager.selectedFigure != null && gameManager.selectedCard != null) {
                     if (gameManager.game.makeMove(gameManager.selectedCard!!, gameManager.selectedFigure!!, gameManager.selectedField!!)) {
                         gameManager.selectedField = arrayOf(row, col)
-                        if (gameManager.game.gameBoard.didSomeoneWin()) {
-                            if(gameManager.playerTurn == Turn.BLUE){
-                                gameManager.playerTurn == Turn.BLUEWON
-                            }else{
-                                gameManager.playerTurn == Turn.REDWON
-                            }
+                        if(gameManager.game.gameBoard.blueWon){
+                            gameManager.playerTurn == Turn.BLUEWON
+                        }else if(gameManager.game.gameBoard.redWon){
+                            gameManager.playerTurn == Turn.REDWON
                         }
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
@@ -452,6 +454,7 @@ class MultiplayerScreen : AppCompatActivity() {
             databaseReference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     // Prüfen, ob die Daten vorhanden sind
+                    lock.lock()
                     if (snapshot.exists()) {
                         val updatedGame = snapshot.getValue(String::class.java)
                         val objectMapper = ObjectMapper()
@@ -482,6 +485,7 @@ class MultiplayerScreen : AppCompatActivity() {
                             }}else if(gameManager.playerTurn == Turn.REDWON && player.equals("blue")){
                                 loseScreen()
                         }
+                        lock.unlock()
                         }else{
                             endGame()
                         }

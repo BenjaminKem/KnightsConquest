@@ -75,8 +75,8 @@ class LocalPlayScreen : AppCompatActivity() {
             val mainScreen = Intent(this, MainScreen::class.java)
             startActivity(mainScreen)
         }
-        val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
-        playerturnblue.isVisible = false
+        val playerturnred = findViewById<ImageView>(R.id.playerturnred)
+        playerturnred.isVisible = false
         // Panels initialisieren und Click Listener setzen
         val panel0_0 = findViewById<Button>(R.id.Panel0_0)
         setPanelClickListener(panel0_0, 0, 0)

@@ -88,7 +88,7 @@ class HostScreen : AppCompatActivity() {
                     val updatedGame = snapshot.getValue(String::class.java)
                     val objectMapper = ObjectMapper()
                     println("Spiel Daten wurden aktualisiert: $updatedGame")
-                    val gameManager: GameManager = objectMapper.readValue(updatedGame.toString())
+                    gameManager = objectMapper.readValue(updatedGame.toString())
                     if(gameManager.playerTwo == PlayerState.JOINED){
                         handleUpdatedGame(gameId)
                     }
