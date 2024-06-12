@@ -250,9 +250,16 @@ class LocalPlayScreen : AppCompatActivity() {
                         "id",
                         packageName
                     )
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground =
-                        ContextCompat.getDrawable(this, R.drawable.redknightpanel)
+                    if(rowCounter == 4 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_knight_blue_castle)
+                    }else if(rowCounter == 0 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_knight_red_castle)
+                    }else{
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.redknightpanel)
+                    }
                 } else if (gameBoard.getPieceAt(
                         rowCounter,
                         columnCounter
@@ -266,9 +273,16 @@ class LocalPlayScreen : AppCompatActivity() {
                         "id",
                         packageName
                     )
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground =
-                        ContextCompat.getDrawable(this, R.drawable.blueknightpanel)
+                    if(rowCounter == 4 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_knight_castle)
+                    }else if(rowCounter == 0 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_knight_red_castle)
+                    }else{
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.blueknightpanel)
+                    }
                 } else if (gameBoard.getPieceAt(
                         rowCounter,
                         columnCounter
@@ -282,9 +296,16 @@ class LocalPlayScreen : AppCompatActivity() {
                         "id",
                         packageName
                     )
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground =
-                        ContextCompat.getDrawable(this, R.drawable.bluekingpanel)
+                    if(rowCounter == 4 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_king_blue_castle)
+                    }else if(rowCounter == 0 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_king_red_castle)
+                    }else{
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.bluekingpanel)
+                    }
                 } else if (gameBoard.getPieceAt(
                         rowCounter,
                         columnCounter
@@ -298,13 +319,27 @@ class LocalPlayScreen : AppCompatActivity() {
                         "id",
                         packageName
                     )
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground =
-                        ContextCompat.getDrawable(this, R.drawable.redkingpanel)
+                    if(rowCounter == 0 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_king_red_castle)
+                    }else if(rowCounter == 4 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_king_blue_castle)
+                    }else{
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.redkingpanel)
+                    }
                 } else {
                     val panelId = resources.getIdentifier("Panel$rowCounter" + "_$columnCounter", "id", packageName)
                     val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel)
+                    if(rowCounter == 0 && columnCounter == 2){
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_castle)
+                    }else if(rowCounter == 4 && columnCounter == 2){
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_castle)
+                    }else{
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel)
+
+                    }
                 }
                 var cardName = game.getRedCard(0).name
                 var drawableResId = cardDrawables[cardName]
