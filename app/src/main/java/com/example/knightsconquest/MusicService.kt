@@ -8,20 +8,27 @@ import android.os.IBinder
 class MusicService : Service() {
 
     private var mediaPlayer: MediaPlayer? = null
-    private var currentSongResId: Int = R.raw.titlemusic
+    private var currentSongResId: Int = -1
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val songResId = intent?.getIntExtra("songResId", R.raw.titlemusic) ?: R.raw.titlemusic
+        val action = intent?.getStringExtra("action")
+        val songResId = intent?.getIntExtra("songResId", -1) ?: -1
 
-        if (mediaPlayer == null || currentSongResId != songResId) {
-            mediaPlayer?.stop()
-            mediaPlayer?.release()
-            mediaPlayer = MediaPlayer.create(this, songResId)
-            mediaPlayer?.isLooping = true
-            currentSongResId = songResId
-            mediaPlayer?.start()
-        } else if (!mediaPlayer!!.isPlaying) {
-            mediaPlayer?.start()
+        when (action) {
+            "pause" -> pauseMusic()
+            "resume" -> resumeMusic()
+            else -> {
+                if (songResId != -1 && (mediaPlayer == null || currentSongResId != songResId)) {
+                    mediaPlayer?.stop()
+                    mediaPlayer?.release()
+                    mediaPlayer = MediaPlayer.create(this, songResId)
+                    mediaPlayer?.isLooping = true
+                    currentSongResId = songResId
+                    mediaPlayer?.start()
+                } else if (mediaPlayer != null && !mediaPlayer!!.isPlaying) {
+                    mediaPlayer?.start()
+                }
+            }
         }
 
         return START_STICKY
@@ -36,5 +43,13 @@ class MusicService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
+    }
+
+    private fun pauseMusic() {
+        mediaPlayer?.pause()
+    }
+
+    private fun resumeMusic() {
+        mediaPlayer?.start()
     }
 }
