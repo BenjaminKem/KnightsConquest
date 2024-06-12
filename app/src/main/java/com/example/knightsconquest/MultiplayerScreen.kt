@@ -1,11 +1,13 @@
 package com.example.knightsconquest
 
 
+import android.app.ActivityManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Switch
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,21 +20,19 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.util.concurrent.locks.ReentrantLock
-
 
 class MultiplayerScreen : AppCompatActivity() {
     val objectMapper = ObjectMapper()
     val db = FirebaseDatabase.getInstance()
     var gameManager: GameManager = GameManager();
     var player:String = "";
-    private val lock = ReentrantLock();
+    private var isMusicEnabled = false
+    private var isMusicBound = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("MultiplayerScreen", "onCreate called")
         enableEdgeToEdge()
         player = intent.getStringExtra("player").toString()
-        lock.lock()
         if(player.equals("red")){
             setContentView(R.layout.activity_multiplayer_play_red)
             deactivateEverything()
@@ -67,7 +67,32 @@ class MultiplayerScreen : AppCompatActivity() {
                 println("Fehler: ${exception.message}")
             })
         }
-        lock.unlock()
+        isMusicEnabled = intent.getBooleanExtra("isMusicEnabled", true)
+        val musicSwitch = findViewById<Switch>(R.id.musicSwitch)
+        musicSwitch.isChecked = isMusicEnabled
+        musicSwitch.setOnCheckedChangeListener { _, isChecked ->
+            isMusicEnabled = isChecked
+            val songResId = R.raw.battlemusic
+            val musicIntent = Intent(this, MusicService::class.java).apply {
+                putExtra("songResId", songResId)
+            }
+            if (isMusicEnabled) {
+                startService(musicIntent)
+            } else {
+                stopService(musicIntent)
+            }
+        }
+
+        if (isMusicEnabled) {
+            val musicIntent = Intent(this, MusicService::class.java).apply {
+                putExtra("songResId", R.raw.battlemusic)
+            }
+            if (!isServiceRunning(MusicService::class.java)) {
+                startService(musicIntent)
+            } else {
+                startService(musicIntent)
+            }
+        }
     }
     private fun initializeBoard(){
         // Panels initialisieren und Click Listener setzen
@@ -196,6 +221,7 @@ class MultiplayerScreen : AppCompatActivity() {
         }
     }
     private fun updateGameBoard(gameBoard: GameBoard) {
+        gotoWinScreen()
         for (rowCounter in 0..4) {
             for (columnCounter in 0..4) {
                 if (gameBoard.getPieceAt(
@@ -316,6 +342,7 @@ class MultiplayerScreen : AppCompatActivity() {
     // Eine Funktion, die das Klicken auf die Panels handhabt
     fun setPanelClickListener(panel: Button, row: Int, col: Int) {
         panel.setOnClickListener {
+            //Wenn der Spieler auf ein Leeres Feld Drückt wird alles Deselected
             if (gameManager.game.gameBoard.getPieceAt(row, col).figure == FigureType.NONE || gameManager.game.gameBoard.getPieceAt(row, col).color != gameManager.game.gameBoard.turnIndicator) {
                 if (gameManager.selectedFigure == null || gameManager.selectedCard == null) {
                     gameManager.selectedFigure = null
@@ -324,13 +351,9 @@ class MultiplayerScreen : AppCompatActivity() {
                 }
                 gameManager.selectedField = arrayOf(row, col)
                 if (gameManager.selectedFigure != null && gameManager.selectedCard != null) {
+                    //Wenn der Spieler auf ein einen Validen Move macht
                     if (gameManager.game.makeMove(gameManager.selectedCard!!, gameManager.selectedFigure!!, gameManager.selectedField!!)) {
                         gameManager.selectedField = arrayOf(row, col)
-                        if(gameManager.game.gameBoard.blueWon){
-                            gameManager.playerTurn == Turn.BLUEWON
-                        }else if(gameManager.game.gameBoard.redWon){
-                            gameManager.playerTurn == Turn.REDWON
-                        }
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
                         gameManager.selectedField = null
@@ -338,6 +361,7 @@ class MultiplayerScreen : AppCompatActivity() {
                         changePlayTurn()
                         writeGameToDatabase(gameManager.gameID,objectMapper.writeValueAsString(gameManager))
                         deactivateEverything()
+                    //Wenn der Spieler einen nicht validen Move macht
                     } else {
                         gameManager.selectedFigure = null
                         gameManager.selectedCard = null
@@ -454,38 +478,22 @@ class MultiplayerScreen : AppCompatActivity() {
             databaseReference.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     // Prüfen, ob die Daten vorhanden sind
-                    lock.lock()
                     if (snapshot.exists()) {
                         val updatedGame = snapshot.getValue(String::class.java)
                         val objectMapper = ObjectMapper()
                         println("Spiel Daten wurden aktualisiert: $updatedGame")
-                        val gameManager: GameManager = objectMapper.readValue(updatedGame.toString())
+                        gameManager = objectMapper.readValue(updatedGame.toString())
                         if(!(gameManager.playerTurn == Turn.LEFT)) {
                             gameManager.selectedFigure = null
                             gameManager.selectedCard = null
                             gameManager.selectedField = null
-                            updateGameBoard(gameManager.game.gameBoard)
-                            if (gameManager.game.gameBoard.didSomeoneWin()) {
-                                if(gameManager.playerTurn == Turn.BLUE){
-                                    gameManager.playerTurn == Turn.BLUEWON
-                                }else{
-                                    gameManager.playerTurn == Turn.REDWON
-                                }
-                            }
                             if (gameManager.playerTurn == Turn.BLUE && player.equals("blue")) {
                                 handleGameUpdated(gameManager)
                             } else if (gameManager.playerTurn == Turn.RED && player.equals("red")) {
                                 handleGameUpdated(gameManager)
-                            }else if(gameManager.playerTurn == Turn.BLUEWON && player.equals("blue")){
-                                endGame()
-                            }else if(gameManager.playerTurn == Turn.REDWON && player.equals("red")){
-                                endGame()
-                            }else if(gameManager.playerTurn == Turn.BLUEWON && player.equals("red")){
-                                loseScreen()
-                            }}else if(gameManager.playerTurn == Turn.REDWON && player.equals("blue")){
-                                loseScreen()
+                            }
+                            updateGameBoard(gameManager.game.gameBoard)
                         }
-                        lock.unlock()
                         }else{
                             endGame()
                         }
@@ -499,9 +507,16 @@ class MultiplayerScreen : AppCompatActivity() {
             val MainScreen = Intent(this, MainScreen::class.java)
             startActivity(MainScreen)
         }
-        fun loseScreen(){
-            val loseScreen = Intent(this, HowToPlay::class.java)
-            startActivity(loseScreen)
+        fun gotoWinScreen(){
+            if(gameManager.game.gameBoard.redWon){
+                val endGameScreen = Intent(this, RedWinScreen::class.java)
+                endGameScreen.putExtra("isMusicEnabled", isMusicEnabled)
+                startActivity(endGameScreen)
+            }else if(gameManager.game.gameBoard.blueWon){
+                val endGameScreen = Intent(this, BlueWinScreen::class.java)
+                endGameScreen.putExtra("isMusicEnabled", isMusicEnabled)
+                startActivity(endGameScreen)
+            }
         }
         fun handleGameUpdated(gameManager: GameManager){
             println("Spiel wird geupdated")
@@ -601,6 +616,9 @@ class MultiplayerScreen : AppCompatActivity() {
         Log.d("MultiplayerScreen", "onDestroy called")
         deleteGameEntry(gameManager.gameID)
         gameManager.playerTurn = Turn.LEFT
+        if (!isMusicEnabled) {
+            stopService(Intent(this, MusicService::class.java))
+        }
     }
     override fun onStart() {
         super.onStart()
@@ -620,6 +638,23 @@ class MultiplayerScreen : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         Log.d("MultiplayerScreen", "onStop called")
+        if (isMusicEnabled) {
+            val musicIntent = Intent(this, MusicService::class.java).apply {
+                putExtra("songResId", R.raw.titlemusic) // zurück zur Hauptmusik
+            }
+            startService(musicIntent)
+        } else {
+            stopService(Intent(this, MusicService::class.java))
+        }
+    }
+    private fun isServiceRunning(serviceClass: Class<*>): Boolean {
+        val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        for (service in activityManager.getRunningServices(Int.MAX_VALUE)) {
+            if (serviceClass.name == service.service.className) {
+                return true
+            }
+        }
+        return false
     }
 }
 

@@ -4,24 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
-import android.widget.Toast
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 class JoinScreen : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     val db = FirebaseDatabase.getInstance()
+    private var isMusicEnabled = false
+    private var isMusicBound = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +35,25 @@ class JoinScreen : AppCompatActivity() {
 
         val gameIdInput = findViewById<EditText>(R.id.idInput)
         val joinButton = findViewById<Button>(R.id.joinButton)
+        isMusicEnabled = intent.getBooleanExtra("isMusicEnabled", false)
+        val musicSwitch = findViewById<Switch>(R.id.musicSwitch)
+        musicSwitch.isChecked = isMusicEnabled
+        musicSwitch.setOnCheckedChangeListener { _, isChecked ->
+            isMusicEnabled = isChecked
+            if (isMusicEnabled) {
+                startService(Intent(this, MusicService::class.java))
+            } else {
+                stopService(Intent(this, MusicService::class.java))
+            }
+        }
+        if (isMusicEnabled) {
+            startService(Intent(this, MusicService::class.java))
+        }
 
         val backButton: Button = findViewById(R.id.backButtonJoinScreen)
         backButton.setOnClickListener {
             val mainScreen = Intent(this, MainScreen::class.java)
+            mainScreen.putExtra("isMusicEnabled", isMusicEnabled)
             startActivity(mainScreen)
         }
 
@@ -53,8 +67,7 @@ class JoinScreen : AppCompatActivity() {
         }
     }
 
-
-    fun joinGame(gameId: String) {
+    private fun joinGame(gameId: String) {
         auth.signInAnonymously().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val databaseReference = db.reference.child("gameIds").child(gameId)
@@ -66,24 +79,27 @@ class JoinScreen : AppCompatActivity() {
                             // Erfolgreiches Abrufen der Spieldaten
                             val objectMapper = ObjectMapper()
                             val gameManager: GameManager = objectMapper.readValue(gameValue)
-                            if(!(gameManager.playerTwo == PlayerState.JOINED)){
-                            gameManager.playerTwo = PlayerState.JOINED
-                            writeGameToDatabase(gameId,objectMapper.writeValueAsString(gameManager))
-                            val multiplayerPlayScreenScreen = Intent(this, MultiplayerScreen::class.java)
-                            multiplayerPlayScreenScreen.putExtra("gameId",gameId)
-                            multiplayerPlayScreenScreen.putExtra("player","red")
-                            startActivity(multiplayerPlayScreenScreen)
-                            }else{Toast.makeText(
-                                this,
-                                "Spiel ist voll: $gameId",
-                                Toast.LENGTH_SHORT
-                            ).show()}
+                            if (!(gameManager.playerTwo == PlayerState.JOINED)) {
+                                gameManager.playerTwo = PlayerState.JOINED
+                                writeGameToDatabase(gameId, objectMapper.writeValueAsString(gameManager))
+                                val multiplayerPlayScreenScreen = Intent(this, MultiplayerScreen::class.java)
+                                multiplayerPlayScreenScreen.putExtra("gameId", gameId)
+                                multiplayerPlayScreenScreen.putExtra("player", "red")
+                                multiplayerPlayScreenScreen.putExtra("isMusicEnabled", isMusicEnabled)
+                                multiplayerPlayScreenScreen.putExtra("songResId", R.raw.battlemusic)
+                                startActivity(multiplayerPlayScreenScreen)
+                            } else {
+                                Toast.makeText(
+                                    this,
+                                    "Spiel ist voll: $gameId",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }, onFailure = { exception ->
                             // Fehler beim Abrufen der Spieldaten
                             println("Fehler: ${exception.message}")
                         })
-                    }
-                        else {
+                    } else {
                         // Spiel existiert nicht
                         Toast.makeText(
                             this,
@@ -101,8 +117,9 @@ class JoinScreen : AppCompatActivity() {
             }
         }
     }
-    private fun writeGameToDatabase(gameId: String,game: String) {
-        var databaseReference = db.reference.child("gameIds").child(gameId)
+
+    private fun writeGameToDatabase(gameId: String, game: String) {
+        val databaseReference = db.reference.child("gameIds").child(gameId)
         databaseReference.setValue(game).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 println("Spiel Daten erfolgreich in die Datenbank geschrieben.")
@@ -111,10 +128,9 @@ class JoinScreen : AppCompatActivity() {
             }
         }
     }
-    fun getGameValue(gameId: String, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
-        val database = FirebaseDatabase.getInstance()
-        val databaseReference = database.getReference("gameIds").child(gameId)
 
+    private fun getGameValue(gameId: String, onSuccess: (String) -> Unit, onFailure: (Exception) -> Unit) {
+        val databaseReference = db.getReference("gameIds").child(gameId)
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -139,5 +155,10 @@ class JoinScreen : AppCompatActivity() {
         })
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!isMusicEnabled) {
+            stopService(Intent(this, MusicService::class.java))
+        }
+    }
 }
-

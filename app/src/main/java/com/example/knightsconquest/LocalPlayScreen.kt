@@ -1,9 +1,11 @@
 package com.example.knightsconquest
 
+import android.app.ActivityManager
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Switch
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -12,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 
 class LocalPlayScreen : AppCompatActivity() {
+    private var isMusicEnabled = false
+    private var isMusicBound = false
     val game = GameController()
     var selectedFigure: Array<Int>? = null
     var selectedCard: Card? = null
@@ -68,11 +72,38 @@ class LocalPlayScreen : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        isMusicEnabled = intent.getBooleanExtra("isMusicEnabled", true)
+        val musicSwitch = findViewById<Switch>(R.id.musicSwitch)
+        musicSwitch.isChecked = isMusicEnabled
+        musicSwitch.setOnCheckedChangeListener { _, isChecked ->
+            isMusicEnabled = isChecked
+            val songResId = R.raw.battlemusic
+            val musicIntent = Intent(this, MusicService::class.java).apply {
+                putExtra("songResId", songResId)
+            }
+            if (isMusicEnabled) {
+                startService(musicIntent)
+            } else {
+                stopService(musicIntent)
+            }
+        }
+
+        if (isMusicEnabled) {
+            val musicIntent = Intent(this, MusicService::class.java).apply {
+                putExtra("songResId", R.raw.battlemusic)
+            }
+            if (!isServiceRunning(MusicService::class.java)) {
+                startService(musicIntent)
+            } else {
+                startService(musicIntent)
+            }
+        }
         game.startGame()
         updateGameBoard(game.gameBoard)
         val backButton: Button = findViewById(R.id.backButtonSoloPlayScreen)
         backButton.setOnClickListener {
             val mainScreen = Intent(this, MainScreen::class.java)
+            mainScreen.putExtra("isMusicEnabled", isMusicEnabled)
             startActivity(mainScreen)
         }
         val playerturnred = findViewById<ImageView>(R.id.playerturnred)
@@ -336,8 +367,15 @@ class LocalPlayScreen : AppCompatActivity() {
                         selectedField = arrayOf(row, col)
                         updateGameBoard(game.gameBoard)
                         if (game.gameBoard.didSomeoneWin()) {
-                            val HowToPlay = Intent(this, HowToPlay::class.java)
-                            startActivity(HowToPlay)
+                            if(game.gameBoard.redWon){
+                                val endGameScreen = Intent(this, RedWinScreen::class.java)
+                                endGameScreen.putExtra("isMusicEnabled", isMusicEnabled)
+                                startActivity(endGameScreen)
+                            }else{
+                                val endGameScreen = Intent(this, BlueWinScreen::class.java)
+                                endGameScreen.putExtra("isMusicEnabled", isMusicEnabled)
+                                startActivity(endGameScreen)
+                            }
                         }
                         selectedFigure = null
                         selectedCard = null
@@ -440,6 +478,32 @@ class LocalPlayScreen : AppCompatActivity() {
                 val panelToChange = findViewById<Button>(panelId)
                 panelToChange.isActivated = false
             }
+        }
+    }
+    override fun onStop() {
+        super.onStop()
+        if (isMusicEnabled) {
+            val musicIntent = Intent(this, MusicService::class.java).apply {
+                putExtra("songResId", R.raw.titlemusic) // zurück zur Hauptmusik
+            }
+            startService(musicIntent)
+        } else {
+            stopService(Intent(this, MusicService::class.java))
+        }
+    }
+    private fun isServiceRunning(serviceClass: Class<*>): Boolean {
+        val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        for (service in activityManager.getRunningServices(Int.MAX_VALUE)) {
+            if (serviceClass.name == service.service.className) {
+                return true
+            }
+        }
+        return false
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!isMusicEnabled) {
+            stopService(Intent(this, MusicService::class.java))
         }
     }
 }

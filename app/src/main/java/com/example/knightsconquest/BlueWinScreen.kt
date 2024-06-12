@@ -15,26 +15,21 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.database.FirebaseDatabase
 
 class BlueWinScreen : AppCompatActivity() {
-    private var isMusicEnabled = true
-    private var mediaPlayer: MediaPlayer? = null
+    private var isMusicEnabled = false
+    private var isMusicBound = false
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_blue_win_screen)
+        isMusicEnabled = intent.getBooleanExtra("isMusicEnabled", false)
 
-        val musicSwitch = findViewById<Switch>(R.id.musicSwitch)
-        musicSwitch.setOnCheckedChangeListener { _, isChecked ->
-            isMusicEnabled = isChecked
-            if (isMusicEnabled) {
-                startBackgroundMusic()
-            } else {
-                stopBackgroundMusic()
-            }
+        if (isMusicEnabled) {
+            startService(Intent(this, MusicService::class.java))
         }
-        mediaPlayer = MediaPlayer.create(this, R.raw.titlemusic)
-        startBackgroundMusic()
+
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainLayout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -44,26 +39,15 @@ class BlueWinScreen : AppCompatActivity() {
         val mainMenuButton: Button = findViewById(R.id.mainMenuButton)
         mainMenuButton.setOnClickListener {
             val mainScreenIntent = Intent(this, MainScreen::class.java)
-            mediaPlayer?.release()
-            mediaPlayer = null
+            mainScreenIntent.putExtra("isMusicEnabled", isMusicEnabled)
             startActivity(mainScreenIntent)
         }
-    }
-    private fun startBackgroundMusic() {
-        if (mediaPlayer == null) {
-            mediaPlayer = MediaPlayer.create(this, R.raw.titlemusic)
-            mediaPlayer?.isLooping = true
-        }
-        mediaPlayer?.start()
-    }
-
-    private fun stopBackgroundMusic() {
-        mediaPlayer?.pause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer?.release()
-        mediaPlayer = null
+        if (!isMusicEnabled) {
+            stopService(Intent(this, MusicService::class.java))
+        }
     }
 }

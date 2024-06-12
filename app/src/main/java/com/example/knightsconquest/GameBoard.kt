@@ -92,6 +92,7 @@ class GameBoard {
             board[fromX][fromY] =Tile(TileColor.NEUTRAL, FigureType.NONE)
             //einsetzen an neuer Position
             board[toX][toY] = tempTile
+            didSomeoneWin()
             return true
         }
         return false
