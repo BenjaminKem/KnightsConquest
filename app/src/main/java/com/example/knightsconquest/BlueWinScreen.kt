@@ -44,6 +44,7 @@ class BlueWinScreen : AppCompatActivity() {
         }
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         if (!isMusicEnabled) {
