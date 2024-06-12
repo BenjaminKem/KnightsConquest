@@ -52,5 +52,4 @@
         android:showText="false"
         android:splitTrack="false" />
 
-
 </RelativeLayout>
