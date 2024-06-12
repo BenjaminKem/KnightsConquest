@@ -334,6 +334,19 @@ class MultiplayerScreen : AppCompatActivity() {
                 drawable = ContextCompat.getDrawable(this, drawableResId)
                 val bottomRightCard = findViewById<Button>(R.id.BottomRightCard)
                 bottomRightCard.foreground = drawable
+
+                if(gameManager.playerTurn == Turn.BLUE){
+                    val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
+                    playerturnblue.isVisible = true
+                    val playerturnred = findViewById<ImageView>(R.id.playerturnred)
+                    playerturnred.isVisible = false
+                }else{
+                    val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
+                    playerturnblue.isVisible = false
+                    val playerturnred = findViewById<ImageView>(R.id.playerturnred)
+                    playerturnred.isVisible = true
+                }
+
             }
         }
         deselectEverything()
