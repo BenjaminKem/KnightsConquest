@@ -221,6 +221,7 @@ class MultiplayerScreen : AppCompatActivity() {
         }
     }
     private fun updateGameBoard(gameBoard: GameBoard) {
+        gotoWinScreen()
         for (rowCounter in 0..4) {
             for (columnCounter in 0..4) {
                 if (gameBoard.getPieceAt(
