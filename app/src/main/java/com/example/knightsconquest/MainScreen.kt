@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainScreen : AppCompatActivity() {
     private var isMusicEnabled = true
+    private var musicPaused = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,13 +100,33 @@ class MainScreen : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        Log.d("Mainscreen", "onStop called")
-
+        Log.d("MainScreen", "onStop called")
+        if (isMusicEnabled) {
+            pauseMusic()
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("Mainscreen", "onResume called")
+        Log.d("MainScreen", "onResume called")
+        if (musicPaused && isMusicEnabled) {
+            resumeMusic()
+        }
+    }
 
+    private fun pauseMusic() {
+        val musicServiceIntent = Intent(this, MusicService::class.java).apply {
+            putExtra("action", "pause")
+        }
+        startService(musicServiceIntent)
+        musicPaused = true
+    }
+
+    private fun resumeMusic() {
+        val musicServiceIntent = Intent(this, MusicService::class.java).apply {
+            putExtra("action", "resume")
+        }
+        startService(musicServiceIntent)
+        musicPaused = false
     }
 }

@@ -221,8 +221,6 @@ class MultiplayerScreen : AppCompatActivity() {
         }
     }
     private fun updateGameBoard(gameBoard: GameBoard) {
-        deselectEverything()
-        gotoWinScreen()
         for (rowCounter in 0..4) {
             for (columnCounter in 0..4) {
                 if (gameBoard.getPieceAt(
@@ -238,9 +236,16 @@ class MultiplayerScreen : AppCompatActivity() {
                         "id",
                         packageName
                     )
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground =
-                        ContextCompat.getDrawable(this, R.drawable.redknightpanel)
+                    if(rowCounter == 4 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_knight_blue_castle)
+                    }else if(rowCounter == 0 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_knight_red_castle)
+                    }else{
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.redknightpanel)
+                    }
                 } else if (gameBoard.getPieceAt(
                         rowCounter,
                         columnCounter
@@ -254,9 +259,16 @@ class MultiplayerScreen : AppCompatActivity() {
                         "id",
                         packageName
                     )
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground =
-                        ContextCompat.getDrawable(this, R.drawable.blueknightpanel)
+                    if(rowCounter == 4 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_knight_castle)
+                    }else if(rowCounter == 0 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_knight_red_castle)
+                    }else{
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.blueknightpanel)
+                    }
                 } else if (gameBoard.getPieceAt(
                         rowCounter,
                         columnCounter
@@ -270,9 +282,16 @@ class MultiplayerScreen : AppCompatActivity() {
                         "id",
                         packageName
                     )
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground =
-                        ContextCompat.getDrawable(this, R.drawable.bluekingpanel)
+                    if(rowCounter == 4 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_king_blue_castle)
+                    }else if(rowCounter == 0 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_king_red_castle)
+                    }else{
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.bluekingpanel)
+                    }
                 } else if (gameBoard.getPieceAt(
                         rowCounter,
                         columnCounter
@@ -286,13 +305,27 @@ class MultiplayerScreen : AppCompatActivity() {
                         "id",
                         packageName
                     )
-                    val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground =
-                        ContextCompat.getDrawable(this, R.drawable.redkingpanel)
+                    if(rowCounter == 0 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_king_red_castle)
+                    }else if(rowCounter == 4 && columnCounter == 2){
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_king_blue_castle)
+                    }else{
+                        val panelToChange = findViewById<Button>(panelId)
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.redkingpanel)
+                    }
                 } else {
                     val panelId = resources.getIdentifier("Panel$rowCounter" + "_$columnCounter", "id", packageName)
                     val panelToChange = findViewById<Button>(panelId)
-                    panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel)
+                    if(rowCounter == 0 && columnCounter == 2){
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_red_castle)
+                    }else if(rowCounter == 4 && columnCounter == 2){
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel_blue_castle)
+                    }else{
+                        panelToChange.foreground = ContextCompat.getDrawable(this, R.drawable.panel)
+
+                    }
                 }
                 var cardName = gameManager.game.getRedCard(0).name
                 var drawableResId = gameManager.cardDrawables[cardName]
@@ -335,19 +368,6 @@ class MultiplayerScreen : AppCompatActivity() {
                 drawable = ContextCompat.getDrawable(this, drawableResId)
                 val bottomRightCard = findViewById<Button>(R.id.BottomRightCard)
                 bottomRightCard.foreground = drawable
-
-                if(gameManager.playerTurn == Turn.BLUE){
-                    val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
-                    playerturnblue.isVisible = true
-                    val playerturnred = findViewById<ImageView>(R.id.playerturnred)
-                    playerturnred.isVisible = false
-                }else{
-                    val playerturnblue = findViewById<ImageView>(R.id.playerturnblue)
-                    playerturnblue.isVisible = false
-                    val playerturnred = findViewById<ImageView>(R.id.playerturnred)
-                    playerturnred.isVisible = true
-                }
-
             }
         }
         deselectEverything()

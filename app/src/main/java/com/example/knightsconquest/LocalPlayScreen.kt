@@ -3,6 +3,7 @@ package com.example.knightsconquest
 import android.app.ActivityManager
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Switch
@@ -16,6 +17,7 @@ import androidx.core.view.isVisible
 class LocalPlayScreen : AppCompatActivity() {
     private var isMusicEnabled = false
     private var isMusicBound = false
+    private var musicPaused = false
     val game = GameController()
     var selectedFigure: Array<Int>? = null
     var selectedCard: Card? = null
@@ -518,12 +520,7 @@ class LocalPlayScreen : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         if (isMusicEnabled) {
-            val musicIntent = Intent(this, MusicService::class.java).apply {
-                putExtra("songResId", R.raw.titlemusic) // zurück zur Hauptmusik
-            }
-            startService(musicIntent)
-        } else {
-            stopService(Intent(this, MusicService::class.java))
+            pauseMusic()
         }
     }
     private fun isServiceRunning(serviceClass: Class<*>): Boolean {
@@ -540,5 +537,29 @@ class LocalPlayScreen : AppCompatActivity() {
         if (!isMusicEnabled) {
             stopService(Intent(this, MusicService::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainScreen", "onResume called")
+        if (musicPaused && isMusicEnabled) {
+            resumeMusic()
+        }
+    }
+
+    private fun pauseMusic() {
+        val musicServiceIntent = Intent(this, MusicService::class.java).apply {
+            putExtra("action", "pause")
+        }
+        startService(musicServiceIntent)
+        musicPaused = true
+    }
+
+    private fun resumeMusic() {
+        val musicServiceIntent = Intent(this, MusicService::class.java).apply {
+            putExtra("action", "resume")
+        }
+        startService(musicServiceIntent)
+        musicPaused = false
     }
 }
