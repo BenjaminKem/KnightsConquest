@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-class GameBoard {
+ open class GameBoard {
     var size = 5
     var board = Array(size) { Array(size) { Tile(TileColor.NEUTRAL, FigureType.NONE) } }
     var turnIndicator : TileColor = TileColor.BLUE

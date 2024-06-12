@@ -5,9 +5,9 @@ plugins {
 }
 
 android {
+
     namespace = "com.example.knightsconquest"
     compileSdk = 34
-
     defaultConfig {
         applicationId = "com.example.knightsconquest"
         minSdk = 24
@@ -16,6 +16,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -58,7 +59,17 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.12.2")
+    testImplementation("org.robolectric:robolectric:4.6.1")
+    testImplementation ("org.robolectric:robolectric:4.6.1")
+    testImplementation ("androidx.test:core:1.4.0")
+    testImplementation ("androidx.test:runner:1.4.0")
+    testImplementation ("androidx.test.ext:junit:1.1.3")
+
 }
