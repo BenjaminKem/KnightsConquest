@@ -20,8 +20,6 @@ class JoinScreen : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     val db = FirebaseDatabase.getInstance()
     private var isMusicEnabled = false
-    private var isMusicBound = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

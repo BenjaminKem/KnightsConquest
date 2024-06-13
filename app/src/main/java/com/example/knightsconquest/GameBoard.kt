@@ -136,28 +136,6 @@ import com.fasterxml.jackson.annotation.JsonInclude
         blueWon = true
         return true
     }
-    fun printBoard(){
-        for (rowCounter in 0..4) {
-            for (columnCounter in 0..4) {
-                if(this.getPieceAt(rowCounter,columnCounter).color == TileColor.RED && this.getPieceAt(rowCounter,columnCounter).figure == FigureType.KING){
-                    print("RK \t")
-                }
-                else if(this.getPieceAt(rowCounter,columnCounter).color == TileColor.BLUE && this.getPieceAt(rowCounter,columnCounter).figure == FigureType.KING){
-                    print("BK \t")
-                }
-                else if(this.getPieceAt(rowCounter,columnCounter).color == TileColor.BLUE && this.getPieceAt(rowCounter,columnCounter).figure == FigureType.KNIGHT){
-                    print("BS \t")
-                }
-                else if(this.getPieceAt(rowCounter,columnCounter).color == TileColor.RED && this.getPieceAt(rowCounter,columnCounter).figure == FigureType.KNIGHT){
-                    print("RS \t" )
-                }
-                else{
-                    print("N \t")
-                }
-            }
-            println()
-        }
-    }
     fun endTurn(){
         turnIndicator = if (turnIndicator == TileColor.RED){
             println("Blue Turn")

@@ -101,9 +101,6 @@ class MainScreen : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         Log.d("MainScreen", "onStop called")
-        if (isMusicEnabled) {
-            pauseMusic()
-        }
     }
 
     override fun onResume() {

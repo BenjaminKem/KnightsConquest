@@ -27,7 +27,6 @@ class MultiplayerScreen : AppCompatActivity() {
     var gameManager: GameManager = GameManager();
     var player:String = "";
     private var isMusicEnabled = false
-    private var isMusicBound = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("MultiplayerScreen", "onCreate called")

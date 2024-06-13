@@ -11,9 +11,6 @@ class Card(
     val movements: Array<Array<Int>> = emptyArray(),
     private val imageUrl: String = ""
 ) {
-    init {
-        // println("Eine neue Karte mit dem Namen $name und den Bewegungen ${movements.contentDeepToString()} wurde erstellt.")
-    }
     override fun toString(): String {
         return "Name: $name \nBewegungsanzahl: $movementCount \nBewegungen: ${movements.contentDeepToString()} \nBild-URL: $imageUrl"
     }

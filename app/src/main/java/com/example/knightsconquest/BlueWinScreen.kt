@@ -16,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase
 
 class BlueWinScreen : AppCompatActivity() {
     private var isMusicEnabled = false
-    private var isMusicBound = false
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {

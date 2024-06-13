@@ -16,7 +16,6 @@ import androidx.core.view.isVisible
 
 class LocalPlayScreen : AppCompatActivity() {
     private var isMusicEnabled = false
-    private var isMusicBound = false
     private var musicPaused = false
     val game = GameController()
     var selectedFigure: Array<Int>? = null
@@ -519,9 +518,6 @@ class LocalPlayScreen : AppCompatActivity() {
     }
     override fun onStop() {
         super.onStop()
-        if (isMusicEnabled) {
-            pauseMusic()
-        }
     }
     private fun isServiceRunning(serviceClass: Class<*>): Boolean {
         val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager

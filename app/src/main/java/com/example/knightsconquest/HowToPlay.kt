@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 
 class HowToPlay : AppCompatActivity() {
     private var isMusicEnabled = false
-    private var isMusicBound = false
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
