@@ -27,15 +27,16 @@ class MultiplayerScreen : AppCompatActivity() {
     var gameManager: GameManager = GameManager();
     var player:String = "";
     private var isMusicEnabled = false
+    private var musicPaused = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("MultiplayerScreen", "onCreate called")
         enableEdgeToEdge()
         player = intent.getStringExtra("player").toString()
-        if(player.equals("red")){
+        if (player.equals("red")) {
             setContentView(R.layout.activity_multiplayer_play_red)
             deactivateEverything()
-        }else{
+        } else {
             setContentView(R.layout.activity_multiplayer_play_blue)
         }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -644,40 +645,12 @@ class MultiplayerScreen : AppCompatActivity() {
             }
         }
     }
-
     override fun onDestroy() {
         super.onDestroy()
         Log.d("MultiplayerScreen", "onDestroy called")
         deleteGameEntry(gameManager.gameID)
         gameManager.playerTurn = Turn.LEFT
         if (!isMusicEnabled) {
-            stopService(Intent(this, MusicService::class.java))
-        }
-    }
-    override fun onStart() {
-        super.onStart()
-        Log.d("MultiplayerScreen", "onStart called")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("MultiplayerScreen", "onResume called")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("MultiplayerScreen", "onPause called")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("MultiplayerScreen", "onStop called")
-        if (isMusicEnabled) {
-            val musicIntent = Intent(this, MusicService::class.java).apply {
-                putExtra("songResId", R.raw.titlemusic) // zurück zur Hauptmusik
-            }
-            startService(musicIntent)
-        } else {
             stopService(Intent(this, MusicService::class.java))
         }
     }
@@ -689,6 +662,37 @@ class MultiplayerScreen : AppCompatActivity() {
             }
         }
         return false
+    }
+    override fun onStop() {
+        Log.d("LocalPlayScreen", "onStop called")
+        super.onStop()
+        if (isMusicEnabled) {
+            pauseMusic()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("LocalPlayScreen", "onResume called")
+        if (musicPaused && isMusicEnabled) {
+            resumeMusic()
+        }
+    }
+
+    private fun pauseMusic() {
+        val musicServiceIntent = Intent(this, MusicService::class.java).apply {
+            putExtra("action", "pause")
+        }
+        startService(musicServiceIntent)
+        musicPaused = true
+    }
+
+    private fun resumeMusic() {
+        val musicServiceIntent = Intent(this, MusicService::class.java).apply {
+            putExtra("action", "resume")
+        }
+        startService(musicServiceIntent)
+        musicPaused = false
     }
 }
 
