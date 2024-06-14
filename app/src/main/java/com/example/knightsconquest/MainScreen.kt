@@ -13,7 +13,6 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainScreen : AppCompatActivity() {
     private var isMusicEnabled = true
-    private var musicPaused = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,11 +40,7 @@ class MainScreen : AppCompatActivity() {
             val musicIntent = Intent(this, MusicService::class.java).apply {
                 putExtra("songResId", R.raw.titlemusic)
             }
-            if (!isServiceRunning(MusicService::class.java)) {
-                startService(musicIntent)
-            } else {
-                startService(musicIntent)
-            }
+            startService(musicIntent)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainLayout)) { v, insets ->
@@ -81,49 +76,10 @@ class MainScreen : AppCompatActivity() {
         }
     }
 
-    private fun isServiceRunning(serviceClass: Class<*>): Boolean {
-        val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
-        for (service in activityManager.getRunningServices(Int.MAX_VALUE)) {
-            if (serviceClass.name == service.service.className) {
-                return true
-            }
-        }
-        return false
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         if (!isMusicEnabled) {
             stopService(Intent(this, MusicService::class.java))
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("MainScreen", "onStop called")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("MainScreen", "onResume called")
-        if (musicPaused && isMusicEnabled) {
-            resumeMusic()
-        }
-    }
-
-    private fun pauseMusic() {
-        val musicServiceIntent = Intent(this, MusicService::class.java).apply {
-            putExtra("action", "pause")
-        }
-        startService(musicServiceIntent)
-        musicPaused = true
-    }
-
-    private fun resumeMusic() {
-        val musicServiceIntent = Intent(this, MusicService::class.java).apply {
-            putExtra("action", "resume")
-        }
-        startService(musicServiceIntent)
-        musicPaused = false
     }
 }
