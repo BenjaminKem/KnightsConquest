@@ -406,10 +406,12 @@ class LocalPlayScreen : AppCompatActivity() {
                             if(game.gameBoard.redWon){
                                 val endGameScreen = Intent(this, RedWinScreen::class.java)
                                 endGameScreen.putExtra("isMusicEnabled", isMusicEnabled)
+                                endGameScreen.putExtra("songResId", R.raw.battlemusic)
                                 startActivity(endGameScreen)
                             }else{
                                 val endGameScreen = Intent(this, BlueWinScreen::class.java)
                                 endGameScreen.putExtra("isMusicEnabled", isMusicEnabled)
+                                endGameScreen.putExtra("songResId", R.raw.battlemusic)
                                 startActivity(endGameScreen)
                             }
                         }
@@ -516,9 +518,6 @@ class LocalPlayScreen : AppCompatActivity() {
             }
         }
     }
-    override fun onStop() {
-        super.onStop()
-    }
     private fun isServiceRunning(serviceClass: Class<*>): Boolean {
         val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
         for (service in activityManager.getRunningServices(Int.MAX_VALUE)) {
@@ -534,10 +533,17 @@ class LocalPlayScreen : AppCompatActivity() {
             stopService(Intent(this, MusicService::class.java))
         }
     }
+    override fun onStop() {
+        Log.d("LocalPlayScreen", "onStop called")
+        super.onStop()
+        if (isMusicEnabled) {
+            pauseMusic()
+        }
+    }
 
     override fun onResume() {
         super.onResume()
-        Log.d("MainScreen", "onResume called")
+        Log.d("LocalPlayScreen", "onResume called")
         if (musicPaused && isMusicEnabled) {
             resumeMusic()
         }
